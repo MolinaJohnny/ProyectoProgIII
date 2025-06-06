@@ -1,0 +1,58 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    ;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* NAVBAR */
+.header_index {
+    background-color: rgb(52, 166, 219);
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px; 
+    flex-wrap: wrap;
+}
+nav{
+    border-top: 2px solid black;
+    border-radius: 5px;
+}
+.logo {
+    width: 90px;    
+}
+/* TICKER */
+
+#ticket{
+    background-color: white;
+    border: 3px solid black;
+    margin-bottom: 5px;
+    border-radius: 3%;
+}
+
+
+
+.productos{
+    height: 400px;
+}
+/* FOOTER DE TICKET */
+footer{
+    border-top: 1px solid ;
+    margin-top: 10px;
+}
+/* BUTTONS */
+.buttons{
+    padding: 38px;
+    
+    background-color: rgb(26, 25, 25);
+}
+button{
+    margin: 7px;
+}
