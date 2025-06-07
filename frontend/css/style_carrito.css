@@ -1,0 +1,30 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    ;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* NAVBAR */
+.header_index {
+    background-color: rgb(52, 166, 219);
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px; 
+    flex-wrap: wrap;
+}
+nav{
+    border-top: 2px solid black;
+    border-radius: 5px;
+}
+.logo {
+    width: 90px;    
+}
