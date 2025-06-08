@@ -10,46 +10,66 @@
 </head>
 <body>
         <!-- NAVBAR// FALTA MEJOR DISEÑO Y COLORES -->
-    <header class="header_index">
+    <header class="header_index p-0 m-0 gap-0">
         <div class="container ">
-            <div class="row w-100 text-center col-12">
-                <div class="col-sm-12 col-md-4">Alumnos: MOLINA, LOCASO</div>
-                <div class="col-sm-12 col-md-4">GAME VAULT</div>
-                <div class="col-sm-12 col-md-4">
-                    <img src="./img/logo2.jpg" alt="Logo" class="img-fluid logo">
+            <div class="row text-center align-items-center col-md-12 m-0">
+                <div class="col-md-4">Alumnos: MOLINA, LOCASO</div>
+                <div class="col-md-4">GAME VAULT</div>
+                <div class="col-md-4 align-items-center">
+                    <img src="./img/logo2.jpg" alt="Logo" class="logo ">
             </div>
         </div>
         </div>
         <!-- BOTONES DE NAVEGACION -->
-        <nav class="navbar col-12">
-            <button class="btn btn-primary d-block mx-auto col-lg-2 col-md-2">Home</button>
-            <button class="btn btn-primary d-block mx-auto col-lg-2 col-md-2">Lista Productos</button>
-            <button class="btn btn-primary d-block mx-auto col-lg-2 col-md-2">Carrito</button>
+        <!-- NAV CON RESPONSIVE -->
+        <nav class="navbar col-12 p-0 text-center">
+            <div class="container col-lg-6 col-md-10 col-sm-12 row text-center  justify-content-center h-100 m-0 p-0" id="elements_nav">
+
+                <a href="" class="enlace col-lg-3 col-md-2 col-sm-12 h-100 p-2"> Home</a>
+                
+                <a href="" class="enlace col-lg-3 col-md-2 col-sm-12 h-100 p-2  "> Productos</a>
+                
+                <a href="/frontend/carrito.html" class="enlace col-lg-3 col-md-2 col-sm-12 h-100 p-2"> Carrito</a>
+
+            </div>
         </nav>
     </header>
     <main>
-        <h2>Lista Carrito</h2>
-        <section class="container border-2 border border-dark-subtle text-center mt-3 col-8 " id="carrito-section ">
+        <div class="container d-lg-flex  gap-4 mt-5 ">
             
-            <div class="row d-flex justify-content-between p-2 m-3 g-3">
-                <div class="card col-lg-5 col-md-5 col-sm-1 ">
-                    <p>Hola</p>
-                    <p>Hola</p>
-                </div>
-                <div class="card col-lg-5 col-md-5 col-sm-1 ">
-                    <p>hola</p>
-                </div>
-            </div>
-            
-        </section>
-        <footer class="botones">
-            <div class="col-12 d-flex justify-content-between p-5">
+            <section class="container border-4 border col-lg-8 " id="carrito-section ">
+                <h2> Carrito</h2> 
 
-                <button class="btn btn-primary d-block mx-auto col-5">Finalizar Compra</button>
-                <button class="btn btn-primary d-block mx-auto col-5">Cancelar compra</button>
-            </div>
-            
-        </footer>
+                <ul class=" row d-flex gap-2 col-12 m-0">
+                    <li class="row col-12 gap-2 ">
+                        <img class="img_producto col-4" src="./img/monster-hunter-wilds_947k.jpg" alt="MonsterHunterWilds">
+                        <div class="col-10">
+                            <div class="row col-12 ">
+                                <p class="col-10">Monster Hunter</p>
+                                <button class="col-2">Borrar</button>
+                            </div>
+                            <div>Digital Product</div>
+                            <div class="row col-12">
+                                <p class="col-6">LATAM</p>
+                                <div class="col-3">
+                                    <button>-</button>
+
+                                    <button class="">+</button>
+                                </div>
+                                <p class="col-3">$50000 x 1</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class=" row col-12">
+                        <p>1</p>
+                    </li>
+                </ul>
+                
+            </section>
+            <section class="container border-4 border text-center col-lg-4 mt-3 " id="carrito-section ">
+            <p></p>
+            </section>
+        </div>
     </main>
 </body>
 </html>
