@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Orbitron', sans-serif;
+  background-color: #0d1117;
+  color: #c9d1d9;
+}
+
+body.claro {
+  background-color: #f4f4f4;
+  color: #111;
+}
+
+body.oscuro {
+  background-color: #0d1117;
+  color: #c9d1d9;
+}
+
+header {
+  background-color: #161b22;
+  color: #c9d1d9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 1rem 2rem;
+  border-bottom: 2px solid #00ffe7;
+  text-align: center;
+}
+
+header img {
+  width: 60px;
+  height: auto;
+  border-radius: 50%;
+}
+
+header h1 {
+  font-size: 1.8rem;
+  text-shadow: 0 0 5px #00ffe7;
+}
+
+header button {
+  margin-left: 1rem;
+  color: #00ffe7;
+  text-decoration: none;
+  font-weight: bold;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+header button:hover {
+  color: white;
+}
+
+main {
+  flex: 1;
+  padding: 2rem;
+  text-align: center;
+  padding-top: 10%;
+}
+
+/* Index.html */
+main h2 {
+  font-size: 2.2rem;
+  margin-bottom: 3rem;
+  margin-top: -3rem;
+}
+
+main p {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+input[type="text"] {
+  width: 100%;
+  max-width: 300px;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #00ffe7;
+  background-color: #0d1117;
+  color: #c9d1d9;
+}
+
+body.claro input[type="text"] {
+  background-color: #ffffff;
+  color: #000;
+  border-color: #006aff;
+}
+
+button {
+  background-color: #00ffe7;
+  color: #000;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+body.oscuro button:hover {
+  background-color: white;
+  color: #000;
+}
+body.claro button:hover{
+  background-color: #000;
+  color: white;
+}
+
+/* productos.html */
+.card {
+  background-color: #161b22;
+  color: #c9d1d9;
+  border: 2px solid #00ffe7;
+  box-shadow: 0 0 10px #00ffe7;
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+body.claro .card {
+  background-color: #ffffff;
+  color: #000;
+  border-color: #006aff;
+  box-shadow: 0 0 8px #006aff;
+}
+
+main .btn-primary,
+main .btn-success {
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  main{
+    padding-top: 10%;
+  }
+
+  main h2 {
+    font-size: 1.6rem;
+    margin-top: 0;
+  }
+
+  main p {
+    font-size: 1rem;
+  }
+
+  input[type="text"],
+  button {
+    width: 90%;
+    max-width: 300px;
+  }
+}
