@@ -53,8 +53,9 @@ a.enlace {
 }
 /* PRODUCTOS CARRITO */
 .img_producto{
-    height: 110px;
-    width: 96px;
+    height: 150px;
+    width: 130px;
+
 }
 li{
     background-color: rgb(216, 216, 216);
