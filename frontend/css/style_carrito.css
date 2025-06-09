@@ -53,10 +53,13 @@ a.enlace {
 }
 /* PRODUCTOS CARRITO */
 .img_producto{
-    height: 150px;
+    height: 200px;
     width: 130px;
 
 }
 li{
     background-color: rgb(216, 216, 216);
+}
+#valor_total{
+    height: 600px;
 }
