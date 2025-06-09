@@ -10,6 +10,12 @@ h2 {
     text-align: center;
     margin-top: 20px;
 }
+header h1{
+    color: white;
+    font-size: 1.8rem;
+    text-shadow: 0 0 5px #00ffe7;
+}
+
 
 /* NAVBAR */
 .header_index {
@@ -27,6 +33,11 @@ nav{
     border-radius: 5px;
     height: 3rem;
 
+}
+.logo {
+    width: 60px;
+    height: auto;
+    border-radius: 50%;
 }
 @media (max-width: 425px)  {
 
@@ -64,9 +75,11 @@ a.enlace {
 }
 
 
-
-.productos{
-    height: 400px;
+@media (max-width: 768px) {
+  /* Esto se aplica solo si el ancho es 768px o menor */
+    .productos {
+    font-size: 11px;
+    }
 }
 /* FOOTER DE TICKET */
 footer{
