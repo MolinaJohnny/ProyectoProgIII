@@ -145,19 +145,221 @@ main .btn-success {
   font-weight: bold;
 }
 
+/* Carrito */
+.img_producto {
+  height: 200px;
+  width: 130px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 0 8px #00ffe7;
+  background: #f8faff;
+}
+
+li {
+  background-color: #161b22;
+  color: #c9d1d9;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 8px #00ffe733;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+body.claro li {
+  background-color: #fff;
+  color: #111;
+  box-shadow: 0 0 8px #006aff33;
+  border: 1.5px solid #b3cfff;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  list-style: none;
+}
+
+body.claro .img_producto {
+  box-shadow: 0 0 8px #006aff;
+  border: 1.5px solid #b3cfff;
+  border-radius: 8px;
+  background: #f8faff;
+}
+
+#valor_total {
+  min-height: 350px;
+  background: #161b22;
+  color: #c9d1d9;
+  border-radius: 12px;
+  box-shadow: 0 0 8px #00ffe7;
+  padding: 2rem 1rem;
+}
+
+body.claro #valor_total {
+  background: #f8faff;
+  color: #111;
+  box-shadow: 0 0 8px #006aff;
+  border: 2px solid #b3cfff;
+  border-radius: 12px;
+}
+
+.btn-group .btn {
+  min-width: 36px;
+  font-size: 1.2rem;
+}
+
+.btn_delete {
+  margin-left: 0.5rem;
+  font-size: 1.2rem;
+  padding: 0.2rem 0.6rem;
+}
+
+body.claro .btn-group .btn,
+body.claro .btn_delete {
+  background: #eaf2ff;
+  color: #006aff;
+  border: 1.5px solid #b3cfff;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+}
+
+body.claro .btn-group .btn:hover,
+body.claro .btn_delete:hover {
+  background: #006aff;
+  color: #fff;
+  border-color: #006aff;
+}
+
+body.claro .btn-success {
+  background: #00b894;
+  border-color: #00b894;
+  color: #fff;
+}
+
+body.claro .btn-danger {
+  background: #d63031;
+  border-color: #d63031;
+  color: #fff;
+}
+
+body.claro .btn-success:hover,
+body.claro .btn-danger:hover {
+  filter: brightness(0.9);
+}
+
+body.claro .modal-content {
+  background: #fff;
+  color: #111;
+  border: 2px solid #006aff;
+}
+
+/* Ticket */
+.ticket-factura {
+  background: #fff;
+  border: 3px solid #00ffe7;
+  border-radius: 16px;
+  box-shadow: 0 0 24px #00ffe7cc;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+  color: #222;
+}
+
+body.claro .ticket-factura {
+  border-color: #006aff;
+  box-shadow: 0 0 24px #006aff44;
+}
+
+#ticket {
+  background: #fff;
+  border-radius: 12px;
+  color: #222;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1rem;
+  padding: 0;
+  box-shadow: none;
+}
+
+.ticket-header {
+  border-bottom: 2px dashed #00ffe7 !important;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.ticket-footer {
+  border-top: 2px dashed #00ffe7 !important;
+  margin-top: 1.5rem;
+  padding-top: 0.5rem;
+  font-size: 0.95rem;
+}
+
+body.claro #ticket,
+body.claro .ticket-factura {
+  background: #fff;
+  color: #222;
+}
+
+.productos .row {
+  border-bottom: 1px solid #00ffe744;
+  padding: 0.3rem 0;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+body.claro .productos .row {
+  border-bottom: 1px solid #006aff44;
+}
+
+.buttons .btn {
+  min-width: 160px;
+  max-width: 220px;
+  width: 100%;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Navbar icon buttons uniform size */
+nav .btn.material-symbols-rounded {
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+nav .btn.material-symbols-rounded:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #00ffe7;
+}
+
+/* Responsive: mobile first para carrito y general */
+@media (max-width: 992px) {
+  main {
+    padding: 1rem;
+    padding-top: 15%;
+  }
+  .ticket-factura {
+    padding: 1.2rem 0.5rem;
+  }
+}
+
 @media (max-width: 768px) {
   header {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+    padding: 1rem 0.5rem;
   }
 
   header h1 {
     font-size: 1.5rem;
   }
 
-  main{
-    padding-top: 10%;
+  main {
+    padding-top: 12%;
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
   }
 
   main h2 {
@@ -173,5 +375,59 @@ main .btn-success {
   button {
     width: 90%;
     max-width: 300px;
+  }
+
+  .ticket-factura {
+    padding: 1rem 0.5rem;
+  }
+  #ticket {
+    padding: 0.5rem;
+  }
+  .buttons .btn {
+    min-width: 120px;
+    font-size: 1rem;
+  }
+
+  /* Carrito mobile */
+  li {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0.5rem;
+    padding: 0.7rem 0.3rem;
+    width: 100% !important;
+  }
+  .img_producto {
+    width: 90px !important;
+    height: 90px !important;
+    margin-bottom: 0.5rem;
+  }
+  #valor_total {
+    padding: 1rem 0.5rem;
+    min-height: unset;
+    margin-top: 1rem;
+  }
+  .btn-group .btn,
+  .btn_delete {
+    min-width: 36px;
+    font-size: 1rem;
+    padding: 0.2rem 0.4rem;
+  }
+  .buttons .btn {
+    min-width: 100px;
+    font-size: 0.95rem;
+  }
+}
+
+/* Extra mobile fix para pantallas muy pequeñas */
+@media (max-width: 500px) {
+  .img_producto {
+    width: 70px !important;
+    height: 70px !important;
+  }
+  li {
+    padding: 0.4rem 0.1rem;
+  }
+  .ticket-factura {
+    padding: 0.5rem 0.2rem;
   }
 }

@@ -27,7 +27,10 @@ function renderCarrito() {
         const buttonDelete = document.createElement("button");
         buttonDelete.className = "btn_delete col-md-2 col-4 btn btn-danger";
         buttonDelete.innerHTML = `<span class="material-symbols-rounded">delete</span>`;
-
+        // Se asigna el evento directamente al botón creado para cada producto
+        buttonDelete.addEventListener("click", () => {
+            deleteCarrito(element);
+        });
 
         // Botón sumar cantidad
         const buttonSuma = document.createElement("button");
@@ -45,42 +48,48 @@ function renderCarrito() {
             restaCarrito(element); // Resta uno a la cantidad o elimina si es 1
         });
 
-        // Estructura interna del producto en el carrito
-        div1.innerHTML = `
-            <div class="row">
-                <p class="col-7 col-md-10 h3">${element.nombre}</p>
-            </div>
-        `;
-        div1.querySelector(".row").appendChild(buttonDelete);
+        // --- CAMBIO: Se elimina el uso de innerHTML mezclado con appendChild ---
+        // Se arma toda la estructura del producto usando solo createElement y appendChild
 
-        div1.innerHTML += `
-            <div class="row text-center">
-                <p class="col-12">Categoria: ${element.categoria}</p>
-                <p class="col-6">$${element.precio} x ${element.cantidad}</p>
-                <div class="btn-group col-6" role="group"></div>
-            </div>
-        `;
+        // Fila superior: nombre y botón eliminar
+        const row1 = document.createElement("div");
+        row1.className = "row";
+        const nombre = document.createElement("p");
+        nombre.className = "col-7 col-md-10 h3";
+        nombre.textContent = element.nombre;
+        row1.appendChild(nombre);
+        row1.appendChild(buttonDelete);
 
-        // Agrega los botones suma y resta al grupo
-        const btnGroup = div1.querySelector(".btn-group");
+        // Fila inferior: categoría, precio x cantidad, botones suma/resta
+        const row2 = document.createElement("div");
+        row2.className = "row text-center";
+        const categoria = document.createElement("p");
+        categoria.className = "col-12";
+        categoria.textContent = `Categoria: ${element.categoria}`;
+        const precioCantidad = document.createElement("p");
+        precioCantidad.className = "col-6";
+        precioCantidad.textContent = `$${element.precio} x ${element.cantidad}`;
+        const btnGroup = document.createElement("div");
+        btnGroup.className = "btn-group col-6";
+        btnGroup.setAttribute("role", "group");
         btnGroup.appendChild(buttonSuma);
         btnGroup.appendChild(buttonResta);
+
+        row2.appendChild(categoria);
+        row2.appendChild(precioCantidad);
+        row2.appendChild(btnGroup);
+
+        div1.appendChild(row1);
+        div1.appendChild(row2);
 
         li.appendChild(img);
         li.appendChild(div1);
         carrito.appendChild(li);
-        // Eventos
-        const btn_delete = document.querySelector(".btn_delete")
-        btn_delete.addEventListener("click", ()=>{
-            deleteCarrito(element)})
-            
 
         // Suma los totales
         contador_precio += element.precio * element.cantidad;
         contador_cantidad += element.cantidad;
     });
-    
-    
 
     // Muestra el total y la cantidad de productos
     precioTotal.innerText = `Total : $${contador_precio}`;
