@@ -27,9 +27,7 @@ function renderCarrito() {
         const buttonDelete = document.createElement("button");
         buttonDelete.className = "btn_delete col-md-2 col-4 btn btn-danger";
         buttonDelete.innerHTML = `<span class="material-symbols-rounded">delete</span>`;
-        buttonDelete.addEventListener("click", () => {
-            deleteCarrito(element); // Elimina el producto del carrito
-        });
+
 
         // Botón sumar cantidad
         const buttonSuma = document.createElement("button");
@@ -71,11 +69,18 @@ function renderCarrito() {
         li.appendChild(img);
         li.appendChild(div1);
         carrito.appendChild(li);
+        // Eventos
+        const btn_delete = document.querySelector(".btn_delete")
+        btn_delete.addEventListener("click", ()=>{
+            deleteCarrito(element)})
+            
 
         // Suma los totales
         contador_precio += element.precio * element.cantidad;
         contador_cantidad += element.cantidad;
     });
+    
+    
 
     // Muestra el total y la cantidad de productos
     precioTotal.innerText = `Total : $${contador_precio}`;
@@ -100,9 +105,7 @@ function addCarrito(element) {
 // Elimina el producto del carrito
 function deleteCarrito(producto) {
     const index = listaCarrito.findIndex(item => item.id === producto.id);
-    if (index > -1) {
-        listaCarrito.splice(index, 1);
-    }
+    listaCarrito.splice(index, 1);
     renderCarrito();
 }
 

@@ -1,6 +1,6 @@
 //imports
 import express from 'express';
-import productRoutes from './routes/products.route.js'
+// import productRoutes from './routes/products.route.js'
 import path from 'path';
 import { fileURLToPath } from 'url';
 
