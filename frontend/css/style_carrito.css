@@ -73,6 +73,13 @@ li{
 #valor_total{
     height: 600px;
 }
+#Icons{
+    height: 50px;
+}
+.iconos{
+    height: 30px;
+    width: 100px;
+}
 footer{
     background-color: black;
 }

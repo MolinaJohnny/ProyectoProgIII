@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:wght@400">
-
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/style_carrito.css">
 </head>
@@ -21,16 +20,15 @@
             </div>
         </div>
         </div>
-        <!-- BOTONES DE NAVEGACION -->
         <!-- NAV CON RESPONSIVE -->
         <nav class="navbar col-12 p-0 text-center">
             <div class="container col-lg-6 col-md-10 col-sm-12 row text-center  justify-content-center h-100 m-0 p-0" id="elements_nav">
 
-                <a href="" class="enlace col-lg-3 col-md-2 col-sm-12 h-100 p-2 material-symbols-rounded">home</a>
+                <a href="/frontend/index.html" class="enlace col-lg-3 col-md-2 col-sm-12 h-100 p-2 material-symbols-rounded">home</a>
                 
-                <a href="" class="enlace col-lg-3 col-md-2 col-sm-12 h-100 p-2 material-symbols-rounded"> storefront</a>
+                <a href="/frontend/productos.html" class="enlace col-lg-3 col-md-2 col-sm-12 h-100 p-2 material-symbols-rounded"> storefront</a>
                 
-                <a href="/frontend/carrito.html" class="enlace col-lg-3 col-md-2 col-sm-12 h-100 p-2 material-symbols-rounded"> shopping_cart</a>
+                <a href="" class="enlace col-lg-3 col-md-2 col-sm-12 h-100 p-2 material-symbols-rounded" style="border-bottom: 3px solid red;"> shopping_cart</a>
 
             </div>
         </nav>
@@ -41,20 +39,18 @@
             <section class="container ps-0 m-0 gap-0" id="carrito-section ">
                 <h2> Carrito</h2> 
 
-                <ul class="border ">
+                <ul class="border" id="productos_list">
                     
-                    <li class="row col-12 my-2 justify-content-center justify-content-md-start">
+                    <!-- <li class="row col-12 my-2 justify-content-center justify-content-md-start">
                         <img class="img_producto p-0 img-fluid" src="./img/monster-hunter-wilds_947k.jpg" alt="MonsterHunterWilds">
                         <div class="col-md-9 col-xl-10 p-2 ">
-                            <div class=""></div>
                             
-                            <div class="row ">
+                            <div class="row">
                                 <p class="col-7 col-md-10 h3">Monster Hunter</p>
                                 
                                 <button class="col-md-2 col-4 btn btn-danger "><span class="material-symbols-rounded"> delete</span></button>
                             </div>
-                            <div>Digital Product</div>
-                            <div class="row text-center ju">
+                            <div class="row text-center">
                                 <p class="col-12">LATAM</p>
                                 <p class="col-6 ">$50000 x 1</p>
                                 <div class="btn-group col-6" role="group">
@@ -63,42 +59,41 @@
                                 </div>
                             </div>
                         </div>
-                    </li>
-                    <li class="row col-12 my-2 justify-content-center justify-content-md-start">
-                        <img class="img_producto p-0 img-fluid" src="./img/monster-hunter-wilds_947k.jpg" alt="MonsterHunterWilds">
-                        <div class="col-md-9 col-xl-10 p-2 ">
-                            <div class=""></div>
-                            
-                            <div class="row ">
-                                <p class="col-7 col-md-10 h3">Monster Hunter</p>
-                                
-                                <button class="col-md-2 col-4 btn btn-danger "><span class="material-symbols-rounded"> delete</span></button>
-                            </div>
-                            <div>Digital Product</div>
-                            <div class="row text-center ju">
-                                <p class="col-12">LATAM</p>
-                                <p class="col-6 ">$50000 x 1</p>
-                                <div class="btn-group col-6" role="group">
-                                    <button type="button" class="btn btn-outline-secondary">+</button>
-                                    <button type="button" class="btn btn-outline-secondary">-</button>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                    </li> -->
                 </ul>
-                
             </section>
             <section class="container border-4 border text-center col-lg-4 mt-3 " id="valor_total">
-                <button class="btn btn-success m-5">Finalizar Compra</button>
-                <p class="m-5">CANTIDAD DE PRODUCTOS </p>
-                <P class="h1 m-5">$PRECIO TOTAL</P>
-                <button class="btn btn-danger m-5">CANCELAR COMPRA</button>
-
+                <button  class="btn btn-success m-5" data-bs-toggle="modal" data-bs-target="#modal1" id="finalizar_compra">Finalizar Compra</button>
+                <p class="m-5" id="cantidad_productos">CANTIDAD DE PRODUCTOS </p>
+                <P class="h1 m-5" id="precio_total">$PRECIO TOTAL</P>
+                <a href="/frontend/productos.html" class="btn btn-danger m-5" id="cancelar_compra">CANCELAR COMPRA</a>
             </section>
-        </div>
+            <div class="modal" id="modal1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header"></div>
+                        <div class="modal-body"> <h5>Confirme la compra</h5></div>
+                        <div class="modal-footer"> 
+                            <a href="/frontend/carrito.html" class="btn btn-danger">Cancelar</a>
+                            <a href="/frontend/ticket.html" class="btn btn-success">Confirmar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
     </main>
-    <footer class="mt-auto text-center">
-            as
+        <div class="col-12 align-items-center d-flex" id="Icons">
+                <img class="iconos  img-fluid" src="./img/braintree_paypal.svg" alt="">
+                <img class="iconos  img-fluid" src="./img/ebanx_pagofacil_voucher.svg" alt="">
+                <img class="iconos  img-fluid" src="./img/dlocal_rapipago.svg" alt="">
+                <img class="iconos  img-fluid" src= "./img/ethereum.svg" alt="">
+                <img class="iconos  img-fluid" src="./img/bitcoin-logo.svg" alt="">
+        </div>
+    <footer class="flex-column h-100 d-flex bg-black" id="footer">
+
     </footer>
-</body>
+        
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="./js/carrito.js"></script>
 </html>
