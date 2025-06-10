@@ -66,5 +66,18 @@ function mostrarCategoria(categoria) {
 }
 
 function agregarAlCarrito(idProducto) {
-  alert(`Producto ${idProducto} agregado al carrito (simulado).`);
+  const producto = productos.find(p => p.id === idProducto);
+  if (!producto) return;
+
+  let carrito = JSON.parse(localStorage.getItem("productos_carrito")) || [];
+  const index = carrito.findIndex(p => p.id === idProducto);
+
+  if (index > -1) {
+    carrito[index].cantidad += 1; // Aumentar cantidad si ya existe
+  } else {
+    carrito.push({ ...producto, cantidad: 1 }); // Agregar nuevo producto
+  }
+
+  localStorage.setItem("productos_carrito", JSON.stringify(carrito));
+  alert(`Agregado al carrito: ${producto.nombre}`);
 }
