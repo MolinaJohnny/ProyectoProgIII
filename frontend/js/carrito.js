@@ -21,7 +21,7 @@ function renderCarrito() {
         img.className = "img_producto p-0 img-fluid";
 
         const div1 = document.createElement("div");
-        div1.className = "col-md-9 col-xl-10 p-2";
+        div1.className = "col-md-8 col-xl-9 p-2";
 
         // Botón eliminar (ahora es un <button> para mejor compatibilidad)
         const buttonDelete = document.createElement("button");
@@ -53,9 +53,9 @@ function renderCarrito() {
 
         // Fila superior: nombre y botón eliminar
         const row1 = document.createElement("div");
-        row1.className = "row";
+        row1.className = "row col-12";
         const nombre = document.createElement("p");
-        nombre.className = "col-7 col-md-10 h3";
+        nombre.className = "col-7 col-md-9 h3";
         nombre.textContent = element.nombre;
         row1.appendChild(nombre);
         row1.appendChild(buttonDelete);

@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
 
+
 * {
   margin: 0;
   padding: 0;
@@ -252,6 +253,11 @@ body.claro .modal-content {
   border: 2px solid #006aff;
 }
 
+.iconos{
+    height: 30px;
+    width: 100px;
+}
+
 /* Ticket */
 .ticket-factura {
   background: #fff;
@@ -315,6 +321,10 @@ body.claro .productos .row {
   font-size: 1.1rem;
   margin-bottom: 0.5rem;
 }
+.iconos{
+    height: 30px;
+    width: 100px;
+}
 
 /* Navbar icon buttons uniform size */
 nav .btn.material-symbols-rounded {
@@ -332,6 +342,7 @@ nav .btn.material-symbols-rounded:focus {
   outline: none;
   box-shadow: 0 0 0 2px #00ffe7;
 }
+
 
 /* Responsive: mobile first para carrito y general */
 @media (max-width: 992px) {
