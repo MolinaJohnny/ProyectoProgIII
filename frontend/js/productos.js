@@ -57,7 +57,9 @@ function mostrarCategoria(categoria) {
         <div class="card-body d-flex flex-column justify-content-between">
           <h5 class="card-title">${prod.nombre}</h5>
           <p class="card-text">$${prod.precio}</p>
-          <button class="btn btn-info mt-2" onclick="agregarAlCarrito(${prod.id})">Agregar al carrito</button>
+          <div class="d-flex justify-content-center">
+            <button class="btn btn-info mt-2 w-100" onclick="agregarAlCarrito(${prod.id})">Agregar al carrito</button>
+          </div>
         </div>
       </div>
     `;
