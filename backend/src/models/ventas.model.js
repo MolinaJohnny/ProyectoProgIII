@@ -8,11 +8,7 @@ export const Product = sequelize.define("Product", {
     primaryKey: true,
     allowNull: false,
   },
-  categoria: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  nombre: {
+  nombre_cliente: {
     type: DataTypes.STRING,
     allowNull: false,
   },

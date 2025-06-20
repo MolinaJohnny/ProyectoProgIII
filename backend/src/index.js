@@ -1,43 +1,34 @@
-//imports
-import express from 'express';
-// import productRoutes from './routes/products.route.js'
-import path from 'path';
-import { fileURLToPath } from 'url';
+import express from "express";
+import { __dirname, join } from "./utils/index.js";
+import productRoutes from "./routes/products.route.js";
+import { middlewares } from "./middlewares/auth.middleware.js";
+import { sequelize } from "./config/db-sequelize.js";
 
-//settings
 const app = express();
-app.set("PORT",5000);
-//middlewares
-app.use(express.json());//permite manejar archivos json
+app.set("PORT", process.env.PORT || 5000);
 
-// Necesario para __dirname en ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// Aplica middlewares generales
+middlewares(app);
 
-// Servir archivos estáticos (css, js, imágenes, etc.)
-app.use(express.static(path.join(__dirname, '../../frontend')));
+// Servir archivos estáticos de la carpeta frontend
+app.use(express.static(join(__dirname, "../../frontend")));
 
-// Ruta para index.html
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../frontend/index.html'));
-});
+// Rutas de API y frontend
+app.use("/", productRoutes);
 
-// Ruta para productos.html
-app.get('/productos', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../frontend/productos.html'));
-});
+// Inicializa la conexión y sincronización con la base de datos
+const initializeConnection = async () => {
+  try {
+    await sequelize.authenticate();
+    await sequelize.sync();
+    console.log("Database sincronizada");
+  } catch (error) {
+    console.error("Error al conectar con la base de datos:", error);
+  }
+};
 
-// Ruta para carrito.html
-app.get('/carrito', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../frontend/carrito.html'));
-});
+initializeConnection();
 
-// Ruta para ticket.html
-app.get('/ticket', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../frontend/ticket.html'));
-});
-
-//listener
-app.listen(app.get("PORT"), ()=>{
-    console.log(`Servidor corriendo en http://localhost:${app.get("PORT")}`)
+app.listen(app.get("PORT"), () => {
+  console.log(`Servidor corriendo en http://localhost:${app.get("PORT")}`);
 });
