@@ -6,7 +6,11 @@ import {
   getTicket,
   getAllProducts,
   createProduct,
+  getIndexAdmin,
+  getNewProduct,
+  getListProductos,
 } from "../controllers/products.controller.js";
+import { getProducts } from "../services/product.service.js";
 
 const router = Router();
 
@@ -15,6 +19,9 @@ router.get("/", getIndex);
 router.get("/productos", getProductos);
 router.get("/carrito", getCarrito);
 router.get("/ticket", getTicket);
+router.get("/index-admin", getIndexAdmin)
+router.get("/lista-productos", getListProductos)
+router.get("/mod-producto", getNewProduct)
 
 // Rutas de API para productos (CRUD)
 router.get("/api/products", getAllProducts); // GET /api/products/api

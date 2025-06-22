@@ -8,11 +8,11 @@ import {
 
 // Rutas para servir archivos frontend
 export const getIndex = (req, res) => {
-  res.sendFile(join(__dirname, "../../frontend/index.html"));
+  res.sendFile(join(__dirname, "../../frontend/index.html")); //
 };
 
 export const getProductos = (req, res) => {
-  res.sendFile(join(__dirname, "../../frontend/productos.html"));
+  res.sendFile(join(__dirname, "../../frontend/productos.html")); //
 };
 
 export const getCarrito = (req, res) => {
@@ -23,11 +23,29 @@ export const getTicket = (req, res) => {
   res.sendFile(join(__dirname, "../../frontend/ticket.html"));
 };
 
+// Rutas para servir archivos BACKEND
+export const getIndexAdmin = async (req, res) => {
+  res.render('index-admin', );
+};
+export const getListProductos = async (req, res) => {
+  const productos = await getProducts(); 
+  res.render('listProductos', {productos}); 
+};
+
+export const getNewProduct =  async(req, res) => {
+  const productos = await getProducts(); 
+
+  res.render('new_product', {productos});
+};
+
+
+
 // API: Obtener todos los productos
 export const getAllProducts = async (req, res) => {
   try {
     const products = await getProducts();
-    res.status(200).json({ message: "Lista de productos", payload: products });
+    res.render('index-admin', { productos: products })
+    // res.status(200).json({ message: "Lista de productos", payload: products });
   } catch (error) {
     res
       .status(500)
@@ -56,3 +74,4 @@ export const createProduct = async (req, res) => {
       .json({ message: "Error interno del servidor", err: error.message });
   }
 };
+

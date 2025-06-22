@@ -29,4 +29,5 @@ export const Product = sequelize.define("Product", {
     allowNull: false,
     defaultValue: 0,
   },
-});
+},{
+tableName: 'products',});

@@ -3,9 +3,18 @@ import { __dirname, join } from "./utils/index.js";
 import productRoutes from "./routes/products.route.js";
 import { middlewares } from "./middlewares/auth.middleware.js";
 import { sequelize } from "./config/db-sequelize.js";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const app = express();
 app.set("PORT", process.env.PORT || 5000);
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirnameApp = path.dirname(__filename);
+
+app.set("view engine", "ejs");
+app.set("views", join(__dirnameApp, "views")); 
 
 // Aplica middlewares generales
 middlewares(app);
