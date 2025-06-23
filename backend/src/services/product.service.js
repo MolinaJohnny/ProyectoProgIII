@@ -15,3 +15,7 @@ export const update = async (product, id) => {
 export const deleteP = async (id) => {
   return await Product.destroy({ where: { id: id } });
 };
+
+export const getProductById = async (id) => {
+  return await Product.findByPk(id);
+};

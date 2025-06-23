@@ -1,33 +1,47 @@
 <%- include("partials/nav.ejs") %>
-    <main class="container py-4 text-center">
-        <div id="clienteBienvenida" class="mb-3 h4">
+<main class="container py-4 text-center">
+  <div id="clienteBienvenida" class="mb-3 h4"></div>
+  <div
+    class="mb-4 d-flex flex-wrap justify-content-center gap-3 filtros-categorias"
+  >
+    <button class="btn btn-secondary" onclick="mostrarCategoria('todos')">
+      🛍️ Todos
+    </button>
+    <button class="btn btn-primary" onclick="mostrarCategoria('juegos')">
+      🎮 Juegos fisicos
+    </button>
+    <button class="btn btn-success" onclick="mostrarCategoria('keys')">
+      🔑 Juegos digitales
+    </button>
+    <button
+      onclick="window.location.href= '/mod-producto'"
+      class="btn btn-success"
+    >
+      Crear producto
+    </button>
+  </div>
 
-        </div>
-        <div class="mb-4 d-flex flex-wrap justify-content-center gap-3 filtros-categorias">
-        <button class="btn btn-secondary" onclick="mostrarCategoria('todos')">🛍️ Todos</button>
-        <button class="btn btn-primary" onclick="mostrarCategoria('juegos')">🎮 Juegos fisicos</button>
-        <button class="btn btn-success" onclick="mostrarCategoria('keys')">🔑 Juegos digitales</button>
-        <a href="/mod-producto" class="btn btn-success"> Crear producto</a>
-        </div>
-
-        <div id="listaProductos" class="row justify-content-center g-4">
-            <% if (productos.length > 0) { %>
-                <% productos.forEach(producto => { %>
-                <div class="card col-md-3 p-3">
-                    <div class="card-body">
-                    <h5 class="card-title"><%= producto.nombre %></h5>
-                    <p class="card-text">💰 Precio: $<%= producto.precio %></p>
-                    <p class="card-text">📦 Stock: <%= producto.stock %></p>
-                    <p class="card-text">🏷️ Categoría: <%= producto.categoria %></p>
-                    <button class="btn btn-primary">Modificar</button>
-                    <%  %>
-                    </div>
-                </div>
-                <% }) %>
-            <% } else { %>
-                <p>No hay productos disponibles.</p>
-            <% } %>
-        </div>
-    </main>
+  <div id="listaProductos" class="row justify-content-center g-4">
+    <% if (productos.length > 0) { %> <% productos.forEach(producto => { %>
+    <div class="card col-md-3 p-3">
+      <div class="card-body">
+        <h5 class="card-title"><%= producto.nombre %></h5>
+        <p class="card-text">💰 Precio: $<%= producto.precio %></p>
+        <p class="card-text">📦 Stock: <%= producto.stock %></p>
+        <p class="card-text">🏷️ Categoría: <%= producto.categoria %></p>
+        <button
+          class="btn btn-primary"
+          onclick="window.location.href='/modificar-producto/<%= producto.id %>'"
+        >
+          Modificar
+        </button>
+        <% %>
+      </div>
+    </div>
+    <% }) %> <% } else { %>
+    <p>No hay productos disponibles.</p>
+    <% } %>
+  </div>
+</main>
 
 <%- include('partials/footer.ejs') %>

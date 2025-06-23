@@ -1,54 +1,76 @@
-document.addEventListener("DOMContentLoaded", () => {
+// document.addEventListener("DOMContentLoaded", () => {
+//   const nombre = localStorage.getItem("clienteNombre") || "Cliente";
+//   document.getElementById(
+//     "clienteBienvenida"
+//   ).textContent = `¡Hola, ${nombre}!`;
+
+//   mostrarCategoria("todos"); // Mostrar todo al iniciar
+// });
+
+// const productos = [
+//   {
+//     id: 1,
+//     categoria: "juegos",
+//     nombre: "Elden Ring",
+//     precio: 9999,
+//     imagen: "assets/juegos/eldenring.jpg",
+//     activo: true
+//   },
+//   {
+//     id: 2,
+//     categoria: "juegos",
+//     nombre: "God of War",
+//     precio: 8999,
+//     imagen: "assets/juegos/gow.jpg",
+//     activo: true
+//   },
+//   {
+//     id: 3,
+//     categoria: "keys",
+//     nombre: "Steam Key - Hollow Knight",
+//     precio: 1200,
+//     imagen: "assets/keys/steam_hk.jpg",
+//     activo: true
+//   },
+//   {
+//     id: 4,
+//     categoria: "keys",
+//     nombre: "PSN Key - Horizon",
+//     precio: 3000,
+//     imagen: "assets/keys/ps_horizon.jpg",
+//     activo: true
+//   }
+// ];
+
+let productos = [];
+
+document.addEventListener("DOMContentLoaded", async () => {
   const nombre = localStorage.getItem("clienteNombre") || "Cliente";
-  document.getElementById("clienteBienvenida").textContent = `¡Hola, ${nombre}!`;
+  document.getElementById(
+    "clienteBienvenida"
+  ).textContent = `¡Hola, ${nombre}!`;
 
-  mostrarCategoria("todos"); // Mostrar todo al iniciar
-});
-
-const productos = [
-  {
-    id: 1,
-    categoria: "juegos",
-    nombre: "Elden Ring",
-    precio: 9999,
-    imagen: "assets/juegos/eldenring.jpg",
-    activo: true
-  },
-  {
-    id: 2,
-    categoria: "juegos",
-    nombre: "God of War",
-    precio: 8999,
-    imagen: "assets/juegos/gow.jpg",
-    activo: true
-  },
-  {
-    id: 3,
-    categoria: "keys",
-    nombre: "Steam Key - Hollow Knight",
-    precio: 1200,
-    imagen: "assets/keys/steam_hk.jpg",
-    activo: true
-  },
-  {
-    id: 4,
-    categoria: "keys",
-    nombre: "PSN Key - Horizon",
-    precio: 3000,
-    imagen: "assets/keys/ps_horizon.jpg",
-    activo: true
+  // Obtener productos desde la API
+  try {
+    const res = await fetch("/api/products");
+    const data = await res.json();
+    productos = data.payload || [];
+    mostrarCategoria("todos");
+  } catch (error) {
+    console.error("Error al cargar productos:", error);
   }
-];
+});
 
 function mostrarCategoria(categoria) {
   const contenedor = document.getElementById("listaProductos");
   contenedor.innerHTML = "";
 
-  const filtrados = categoria === "todos"
-    ? productos.filter(p => p.activo)
-    : productos.filter(p => p.activo && p.categoria === categoria);
+  const filtrados =
+    categoria === "todos"
+      ? productos.filter((p) => p.activo)
+      : productos.filter((p) => p.activo && p.categoria === categoria);
 
-  filtrados.forEach(prod => {
+  filtrados.forEach((prod) => {
     const card = document.createElement("div");
     card.className = "col-12 col-sm-6 col-md-4 col-lg-3";
     card.innerHTML = `
@@ -68,11 +90,11 @@ function mostrarCategoria(categoria) {
 }
 
 function agregarAlCarrito(idProducto) {
-  const producto = productos.find(p => p.id === idProducto);
+  const producto = productos.find((p) => p.id === idProducto);
   if (!producto) return;
 
   let carrito = JSON.parse(localStorage.getItem("productos_carrito")) || [];
-  const index = carrito.findIndex(p => p.id === idProducto);
+  const index = carrito.findIndex((p) => p.id === idProducto);
 
   if (index > -1) {
     carrito[index].cantidad += 1; // Aumentar cantidad si ya existe

@@ -1,65 +1,123 @@
 <!DOCTYPE html>
 <html lang="es" class="h-100">
-<head>
-  <meta charset="UTF-8" />
-  <title>Productos - Buenos Aires Games</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="styles/index.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:wght@400">
-  <link rel="icon" href="assets/favicon.ico" />
-</head>
-<body class="d-flex flex-column h-100">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Productos - Buenos Aires Games</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="styles/index.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:wght@400"
+    />
+    <link rel="icon" href="assets/favicon.ico" />
+  </head>
+  <body class="d-flex flex-column h-100">
     <header class="d-flex flex-column align-items-center text-center p-3">
-        <img src="assets/logo.png" alt="Logo" width="60" class="mb-2" />
-        <h1>Buenos Aires Games</h1>
-        <p>Santiago Locaso Turiaci & Johnny Rodrigo Molina</p>
-        <nav class="d-flex gap-2 mt-2">
-            <a href="/index.html" class="btn btn-outline-info btn-sm material-symbols-rounded" title="Inicio">home</a>
-            <a href="/productos" class="btn btn-outline-info btn-sm material-symbols-rounded" title="Productos">storefront</a>
-            <a href="/carrito" class="btn btn-outline-info btn-sm material-symbols-rounded" title="Carrito">shopping_cart</a>
-            <button onclick="cambiarTema()" class="btn btn-outline-light btn-sm material-symbols-rounded" title="Tema">dark_mode</button>
-        </nav>
+      <img src="assets/logo.png" alt="Logo" width="60" class="mb-2" />
+      <h1>Buenos Aires Games</h1>
+      <p>Santiago Locaso Turiaci & Johnny Rodrigo Molina</p>
+      <nav class="d-flex gap-2 mt-2">
+        <a
+          href="/index.html"
+          class="btn btn-outline-info btn-sm material-symbols-rounded"
+          title="Inicio"
+          >home</a
+        >
+        <a
+          href="/productos"
+          class="btn btn-outline-info btn-sm material-symbols-rounded"
+          title="Productos"
+          >storefront</a
+        >
+        <a
+          href="/carrito"
+          class="btn btn-outline-info btn-sm material-symbols-rounded"
+          title="Carrito"
+          >shopping_cart</a
+        >
+        <button
+          onclick="cambiarTema()"
+          class="btn btn-outline-light btn-sm material-symbols-rounded"
+          title="Tema"
+        >
+          dark_mode
+        </button>
+      </nav>
     </header>
     <main>
-        <div class="container d-lg-flex">
-            <section class="container m-0 gap-0" id="carrito-section ">
-                <h2> Carrito</h2> 
-                <ul class="border" id="productos_list">
-                </ul>
-            </section>
-            <section class="container border-4 border text-center col-lg-4 mt-3 " id="valor_total">
-                <button  class="btn btn-success m-5 col-8" data-bs-toggle="modal" data-bs-target="#modal1" id="finalizar_compra">Finalizar Compra</button>
-                <p class="m-5" id="cantidad_productos">CANTIDAD DE PRODUCTOS </p>
-                <P class="h1 m-5" id="precio_total">$PRECIO TOTAL</P>
-                <a href="/productos" class="btn btn-danger m-5" id="cancelar_compra">CANCELAR COMPRA</a>
-            </section>
-            <div class="modal" id="modal1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header"></div>
-                        <div class="modal-body"> <h5>Confirme la compra</h5></div>
-                        <div class="modal-footer"> 
-                            <a href="/carrito" class="btn btn-danger">Cancelar</a>
-                            <a href="/ticket" class="btn btn-success">Confirmar</a>
-                        </div>
-                    </div>
-                </div>
+      <div class="container d-lg-flex">
+        <section class="container m-0 gap-0" id="carrito-section ">
+          <h2>Carrito</h2>
+          <ul class="border" id="productos_list"></ul>
+        </section>
+        <section
+          class="container border-4 border text-center col-lg-4 mt-3"
+          id="valor_total"
+        >
+          <button
+            class="btn btn-success m-5 col-8"
+            data-bs-toggle="modal"
+            data-bs-target="#modal1"
+            id="finalizar_compra"
+          >
+            Finalizar Compra
+          </button>
+          <p class="m-5" id="cantidad_productos">CANTIDAD DE PRODUCTOS</p>
+          <p class="h1 m-5" id="precio_total">$PRECIO TOTAL</p>
+          <a href="/productos" class="btn btn-danger m-5" id="cancelar_compra"
+            >CANCELAR COMPRA</a
+          >
+        </section>
+        <div class="modal" id="modalConfirmarCompra">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header"></div>
+              <div class="modal-body"><h5>Confirme la compra</h5></div>
+              <div class="modal-footer">
+                <a href="/carrito" class="btn btn-danger">Cancelar</a>
+                <a href="/ticket" class="btn btn-success" id="confirmar_compra"
+                  >Confirmar</a
+                >
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </main>
     <div class="col-12 align-items-center d-flex bg-white" id="Icons">
-        <img class="iconos img-fluid" src="./assets/img/braintree_paypal.svg" alt="">
-        <img class="iconos img-fluid" src="./assets/img/ebanx_pagofacil_voucher.svg" alt="">
-        <img class="iconos img-fluid" src="./assets/img/dlocal_rapipago.svg" alt="">
-        <img class="iconos img-fluid" src="./assets/img/ethereum.svg" alt="">
-        <img class="iconos img-fluid" src="./assets/img/bitcoin-logo.svg" alt="">
+      <img
+        class="iconos img-fluid"
+        src="./assets/img/braintree_paypal.svg"
+        alt=""
+      />
+      <img
+        class="iconos img-fluid"
+        src="./assets/img/ebanx_pagofacil_voucher.svg"
+        alt=""
+      />
+      <img
+        class="iconos img-fluid"
+        src="./assets/img/dlocal_rapipago.svg"
+        alt=""
+      />
+      <img class="iconos img-fluid" src="./assets/img/ethereum.svg" alt="" />
+      <img
+        class="iconos img-fluid"
+        src="./assets/img/bitcoin-logo.svg"
+        alt=""
+      />
     </div>
-    <footer class="flex-column h-100 d-flex bg-black" id="footer">
-    </footer>
+    <footer class="flex-column h-100 d-flex bg-black" id="footer"></footer>
     <!-- Scripts al final del body -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="./js/carrito.js"></script>
     <script src="./js/temas.js"></script>
-</body>
+  </body>
 </html>

@@ -1,20 +1,19 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../config/db-sequelize.js";
 
-export const Product = sequelize.define(
-  "Product",
+export const Venta = sequelize.define(
+  "Venta",
   {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
-      allowNull: false,
     },
-    categoria: {
+    nombre: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    nombre: {
+    categoria: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -22,21 +21,18 @@ export const Product = sequelize.define(
       type: DataTypes.FLOAT,
       allowNull: false,
     },
-    imagen: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    stock: {
+    cantidad: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 0,
     },
-    activo: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: true,
+    fecha: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW, // Se asigna la fecha actual por defecto
     },
   },
   {
-    tableName: "products",
+    tableName: "ventas",
+    timestamps: false,
   }
 );

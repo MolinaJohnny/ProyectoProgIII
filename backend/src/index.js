@@ -5,16 +5,16 @@ import { middlewares } from "./middlewares/auth.middleware.js";
 import { sequelize } from "./config/db-sequelize.js";
 import path from "path";
 import { fileURLToPath } from "url";
+import { Venta } from "./models/venta.model.js";
 
 const app = express();
 app.set("PORT", process.env.PORT || 5000);
-
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirnameApp = path.dirname(__filename);
 
 app.set("view engine", "ejs");
-app.set("views", join(__dirnameApp, "views")); 
+app.set("views", join(__dirnameApp, "views"));
 
 // Aplica middlewares generales
 middlewares(app);
@@ -30,6 +30,7 @@ const initializeConnection = async () => {
   try {
     await sequelize.authenticate();
     await sequelize.sync();
+    await Venta.sync();
     console.log("Database sincronizada");
   } catch (error) {
     console.error("Error al conectar con la base de datos:", error);
