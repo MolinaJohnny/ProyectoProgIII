@@ -134,6 +134,23 @@ export const getEditProduct = async (req, res) => {
 export const updateProduct = async (req, res) => {
   const { id } = req.params;
   const { nombre, precio, stock, categoria, imagen } = req.body;
+  
+  
+  //VALIDACION BACKEND
+  if (!categoria || !nombre || !precio || !imagen || stock === undefined)
+      return res.status(400).json({ message: "Todos los campos requeridos" });
+    if (typeof categoria !== "string" ||
+      typeof nombre !== "string"||
+      typeof imagen !== "string"||
+      isNaN(Number(precio))||isNaN(Number(stock))
+    ){return res.status(400).json({ message: "Tipos de datos invalidos" });}
+    const categoriasValidas = ['juegos', 'keys'];
+    if (!categoriasValidas.includes(categoria.toLowerCase())) {
+      return res.status(400).json({ message: "Categoría inválida. Debe ser 'juegos' o 'keys'" });
+    }
+    //VALIDACION BACKEND
+
+
   await update({ nombre, precio, stock, categoria, imagen }, id);
   res.redirect("/lista-productos");
 };
