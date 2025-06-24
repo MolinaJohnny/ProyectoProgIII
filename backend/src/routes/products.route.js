@@ -12,6 +12,7 @@ import {
   registrarVentas,
   getEditProduct,
   updateProduct,
+  toggleDisponible
 } from "../controllers/products.controller.js";
 import { getProducts } from "../services/product.service.js";
 import { getVentasAdmin } from "../controllers/products.controller.js";
@@ -37,4 +38,6 @@ router.post("/api/ventas", registrarVentas);
 
 router.get("/modificar-producto/:id", getEditProduct);
 router.post("/modificar-producto/:id", updateProduct);
+router.post('/producto/:id/toggle-activo', toggleDisponible);
+
 export default router;

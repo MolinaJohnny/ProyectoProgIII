@@ -19,6 +19,7 @@ app.set("views", join(__dirnameApp, "views"));
 // Aplica middlewares generales
 middlewares(app);
 
+
 // Servir archivos estáticos de la carpeta frontend
 app.use(express.static(join(__dirname, "../../frontend")));
 

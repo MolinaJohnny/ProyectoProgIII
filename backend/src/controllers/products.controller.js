@@ -71,16 +71,24 @@ export const createProduct = async (req, res) => {
     const { categoria, nombre, precio, imagen, stock } = req.body;
     if (!categoria || !nombre || !precio || !imagen || stock === undefined)
       return res.status(400).json({ message: "Todos los campos requeridos" });
+    if (typeof categoria !== "string" ||
+      typeof nombre !== "string"||
+      typeof imagen !== "string"||
+      isNaN(Number(precio))||isNaN(Number(stock))
+    ){return res.status(400).json({ message: "Tipos de datos invalidos" });}
+    const categoriasValidas = ['juegos', 'keys'];
+    if (!categoriasValidas.includes(categoria.toLowerCase())) {
+      return res.status(400).json({ message: "Categoría inválida. Debe ser 'juegos' o 'keys'" });
+    }
+
     const newProduct = await create({
       categoria,
       nombre,
-      precio,
+      precio : Number(precio),
       imagen,
-      stock,
+      stock : Number(stock),
     });
-    res
-      .status(201)
-      .json({ message: "Producto creado con exito", payload: newProduct });
+        res.redirect("/lista-productos");
   } catch (error) {
     res
       .status(500)
@@ -128,4 +136,24 @@ export const updateProduct = async (req, res) => {
   const { nombre, precio, stock, categoria, imagen } = req.body;
   await update({ nombre, precio, stock, categoria, imagen }, id);
   res.redirect("/lista-productos");
+};
+
+
+export const toggleDisponible = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const producto = await getProductById(id);
+
+    if (!producto) {
+      return res.status(404).send("Producto no encontrado");
+    }
+
+    // Cambiar el valor booleano
+    producto.activo = !producto.activo;
+    await producto.save();
+
+    res.redirect('/lista-productos');
+  } catch (error) {
+    res.status(500).send("Error al actualizar el producto");
+  }
 };

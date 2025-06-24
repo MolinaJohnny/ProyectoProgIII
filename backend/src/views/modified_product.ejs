@@ -1,24 +1,24 @@
 <%- include("partials/nav.ejs") %>
 <main>
   <form
-    class="d-flex flex-column text-center align-items-center"
+    class="d-flex flex-column text-center align-items-center h4"
     action="/modificar-producto/<%= producto.id %>"
     method="POST"
   >
-    <label for="categoria">Categoria:</label>
-    <input
-      type="text"
-      id="categoria"
-      name="categoria"
-      value="<%= producto.categoria %>"
-      required
-    />
     <label for="nombre">Nombre:</label>
     <input
       type="text"
       id="nombre"
       name="nombre"
       value="<%= producto.nombre %>"
+      required
+    />
+    <label for="categoria">Categoria:</label>
+    <input
+      type="text"
+      id="categoria"
+      name="categoria"
+      value="<%= producto.categoria %>"
       required
     />
     <label for="precio">Precio:</label>
@@ -40,7 +40,7 @@
     <% if (producto.imagen) { %>
     <img
       src="<%= producto.imagen %>"
-      alt="Imagen actual"
+      alt="Imagen"
       style="max-width: 100px; max-height: 100px"
     />
     <% } %>
