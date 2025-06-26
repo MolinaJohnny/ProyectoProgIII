@@ -460,3 +460,13 @@ nav button{
     padding: 0.5rem 0.2rem;
   }
 }
+@media print {
+  #ticket {
+    width: 800px !important;
+  }
+}
+.ticket-pdf {
+  width: 800px !important;
+  max-width: 800px !important;
+  padding: 20px;
+}

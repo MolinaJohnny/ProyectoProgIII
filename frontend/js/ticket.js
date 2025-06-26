@@ -47,6 +47,8 @@ function renderTicket() {
 
 function descargarPDF() {
   const element = document.getElementById("ticket");
+  element.classList.add('ticket-pdf');
+
   const opt = {
     margin: 0.5,
     filename: "ticket_compra.pdf",
@@ -54,7 +56,12 @@ function descargarPDF() {
     html2canvas: { scale: 2, useCORS: true },
     jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
   };
-  html2pdf().set(opt).from(element).save();
+  html2pdf().set(opt).from(element).save().then(() =>{
+    element.classList.remove('ticket-pdf');
+
+  });
+  
+
 }
 
 function init() {

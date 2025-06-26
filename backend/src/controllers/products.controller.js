@@ -185,8 +185,10 @@ export const toggleDisponible = async (req, res) => {
     }
 
     // Cambiar el valor booleano
-    producto.activo = !producto.activo;
-    await producto.save();
+    if (producto.stock != 0){
+      producto.activo = !producto.activo;
+      await producto.save();}
+    
 
     res.redirect("/lista-productos");
   } catch (error) {
