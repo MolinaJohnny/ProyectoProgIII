@@ -107,6 +107,11 @@ function renderCarrito() {
 function addCarrito(element) {
   const productoExistente = listaCarrito.find((item) => item.id === element.id);
 
+  if (productoExistente && productoExistente.cantidad >= element.stock) {
+    document.getElementById(`add-${element.id}`).disabled = true;
+    return;
+  }
+
   if (productoExistente) {
     productoExistente.cantidad += 1;
   } else {

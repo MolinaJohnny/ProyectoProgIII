@@ -71,24 +71,30 @@ export const createProduct = async (req, res) => {
     const { categoria, nombre, precio, imagen, stock } = req.body;
     if (!categoria || !nombre || !precio || !imagen || stock === undefined)
       return res.status(400).json({ message: "Todos los campos requeridos" });
-    if (typeof categoria !== "string" ||
-      typeof nombre !== "string"||
-      typeof imagen !== "string"||
-      isNaN(Number(precio))||isNaN(Number(stock))
-    ){return res.status(400).json({ message: "Tipos de datos invalidos" });}
-    const categoriasValidas = ['juegos', 'keys'];
+    if (
+      typeof categoria !== "string" ||
+      typeof nombre !== "string" ||
+      typeof imagen !== "string" ||
+      isNaN(Number(precio)) ||
+      isNaN(Number(stock))
+    ) {
+      return res.status(400).json({ message: "Tipos de datos invalidos" });
+    }
+    const categoriasValidas = ["juegos", "keys"];
     if (!categoriasValidas.includes(categoria.toLowerCase())) {
-      return res.status(400).json({ message: "Categoría inválida. Debe ser 'juegos' o 'keys'" });
+      return res
+        .status(400)
+        .json({ message: "Categoría inválida. Debe ser 'juegos' o 'keys'" });
     }
 
     const newProduct = await create({
       categoria,
       nombre,
-      precio : Number(precio),
+      precio: Number(precio),
       imagen,
-      stock : Number(stock),
+      stock: Number(stock),
     });
-        res.redirect("/lista-productos");
+    res.redirect("/lista-productos");
   } catch (error) {
     res
       .status(500)
@@ -111,6 +117,16 @@ export const registrarVentas = async (req, res) => {
         cantidad: v.cantidad,
         fecha: new Date(), // Fecha actual
       });
+
+      //actualizar stock
+      const producto = await getProductById(v.id);
+      if (producto) {
+        producto.stock = Math.max(0, producto.stock - v.cantidad);
+        if (producto.stock === 0) {
+          producto.activo = false;
+        }
+        await producto.save();
+      }
     }
     res.status(201).json({ message: "Ventas registradas" });
   } catch (error) {
@@ -134,27 +150,30 @@ export const getEditProduct = async (req, res) => {
 export const updateProduct = async (req, res) => {
   const { id } = req.params;
   const { nombre, precio, stock, categoria, imagen } = req.body;
-  
-  
+
   //VALIDACION BACKEND
   if (!categoria || !nombre || !precio || !imagen || stock === undefined)
-      return res.status(400).json({ message: "Todos los campos requeridos" });
-    if (typeof categoria !== "string" ||
-      typeof nombre !== "string"||
-      typeof imagen !== "string"||
-      isNaN(Number(precio))||isNaN(Number(stock))
-    ){return res.status(400).json({ message: "Tipos de datos invalidos" });}
-    const categoriasValidas = ['juegos', 'keys'];
-    if (!categoriasValidas.includes(categoria.toLowerCase())) {
-      return res.status(400).json({ message: "Categoría inválida. Debe ser 'juegos' o 'keys'" });
-    }
-    //VALIDACION BACKEND
-
+    return res.status(400).json({ message: "Todos los campos requeridos" });
+  if (
+    typeof categoria !== "string" ||
+    typeof nombre !== "string" ||
+    typeof imagen !== "string" ||
+    isNaN(Number(precio)) ||
+    isNaN(Number(stock))
+  ) {
+    return res.status(400).json({ message: "Tipos de datos invalidos" });
+  }
+  const categoriasValidas = ["juegos", "keys"];
+  if (!categoriasValidas.includes(categoria.toLowerCase())) {
+    return res
+      .status(400)
+      .json({ message: "Categoría inválida. Debe ser 'juegos' o 'keys'" });
+  }
+  //VALIDACION BACKEND
 
   await update({ nombre, precio, stock, categoria, imagen }, id);
   res.redirect("/lista-productos");
 };
-
 
 export const toggleDisponible = async (req, res) => {
   try {
@@ -169,7 +188,7 @@ export const toggleDisponible = async (req, res) => {
     producto.activo = !producto.activo;
     await producto.save();
 
-    res.redirect('/lista-productos');
+    res.redirect("/lista-productos");
   } catch (error) {
     res.status(500).send("Error al actualizar el producto");
   }
