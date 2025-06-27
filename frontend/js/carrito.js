@@ -97,7 +97,7 @@ function renderCarrito() {
   });
 
   // Muestra el total y la cantidad de productos
-  precioTotal.innerText = `Total : $${contador_precio}`;
+  precioTotal.innerText = `Total : $${contador_precio.toFixed(2)}`;
   cantidad_productos.innerText = `CANTIDAD DE PRODUCTOS : ${contador_cantidad}`;
 
   guardarProductos();

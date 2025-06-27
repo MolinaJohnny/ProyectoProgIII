@@ -1,9 +1,12 @@
 <%- include("partials/nav.ejs") %>
-<main>
+<main class="container py-4">
+  <h2 class="text-center mb-4">Modificar producto</h2>
+
   <form
-    class="d-flex flex-column text-center align-items-center h4"
+    class="d-flex flex-column text-center align-items-center h4 gap-3"
     action="/modificar-producto/<%= producto.id %>"
     method="POST"
+    enctype="multipart/form-data"
   >
     <label for="nombre">Nombre:</label>
     <input
@@ -13,7 +16,8 @@
       value="<%= producto.nombre %>"
       required
     />
-    <label for="categoria">Categoria:</label>
+
+    <label for="categoria">Categoría:</label>
     <input
       type="text"
       id="categoria"
@@ -21,6 +25,7 @@
       value="<%= producto.categoria %>"
       required
     />
+
     <label for="precio">Precio:</label>
     <input
       type="text"
@@ -29,21 +34,19 @@
       value="<%= producto.precio %>"
       required
     />
-    <label for="imagen">Imagen:</label>
-    <input
-      type="text"
-      id="imagen"
-      name="imagen"
-      value="<%= producto.imagen %>"
-      required
-    />
+
+    <label for="imagen">Imagen (nueva, opcional):</label>
+    <input type="file" id="imagen" name="imagen" accept="image/*" />
+
     <% if (producto.imagen) { %>
+    <p class="mt-2">Imagen actual:</p>
     <img
       src="<%= producto.imagen %>"
-      alt="Imagen"
-      style="max-width: 100px; max-height: 100px"
+      alt="Imagen actual"
+      style="max-width: 200px; max-height: 200px"
     />
     <% } %>
+
     <label for="stock">Stock:</label>
     <input
       type="text"
@@ -52,7 +55,8 @@
       value="<%= producto.stock %>"
       required
     />
-    <button type="submit">Guardar cambios</button>
+
+    <button type="submit" class="btn btn-primary mt-3">Guardar cambios</button>
   </form>
 </main>
-<%- include('partials/footer.ejs') %>
+<%- include("partials/footer.ejs") %>

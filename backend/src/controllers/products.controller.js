@@ -38,7 +38,7 @@ export const getListProductos = async (req, res) => {
 export const getNewProduct = async (req, res) => {
   const productos = await getProducts();
 
-  res.render("new_product", { productos });
+  res.render("new_product", { productos: productos || [] });
 };
 
 // API: Obtener todos los productos
@@ -68,18 +68,13 @@ export const getVentasAdmin = async (req, res) => {
 
 export const createProduct = async (req, res) => {
   try {
-    const { categoria, nombre, precio, imagen, stock } = req.body;
-    if (!categoria || !nombre || !precio || !imagen || stock === undefined)
+    const { categoria, nombre, precio, stock } = req.body;
+    const imagen = req.file?.path;
+
+    if (!categoria || !nombre || !precio || !imagen || stock === undefined) {
       return res.status(400).json({ message: "Todos los campos requeridos" });
-    if (
-      typeof categoria !== "string" ||
-      typeof nombre !== "string" ||
-      typeof imagen !== "string" ||
-      isNaN(Number(precio)) ||
-      isNaN(Number(stock))
-    ) {
-      return res.status(400).json({ message: "Tipos de datos invalidos" });
     }
+
     const categoriasValidas = ["juegos", "keys"];
     if (!categoriasValidas.includes(categoria.toLowerCase())) {
       return res
@@ -94,6 +89,7 @@ export const createProduct = async (req, res) => {
       imagen,
       stock: Number(stock),
     });
+
     res.redirect("/lista-productos");
   } catch (error) {
     res
@@ -149,30 +145,51 @@ export const getEditProduct = async (req, res) => {
 // Procesar edición
 export const updateProduct = async (req, res) => {
   const { id } = req.params;
-  const { nombre, precio, stock, categoria, imagen } = req.body;
+  const { nombre, precio, stock, categoria } = req.body;
 
-  //VALIDACION BACKEND
-  if (!categoria || !nombre || !precio || !imagen || stock === undefined)
-    return res.status(400).json({ message: "Todos los campos requeridos" });
-  if (
-    typeof categoria !== "string" ||
-    typeof nombre !== "string" ||
-    typeof imagen !== "string" ||
-    isNaN(Number(precio)) ||
-    isNaN(Number(stock))
-  ) {
-    return res.status(400).json({ message: "Tipos de datos invalidos" });
-  }
-  const categoriasValidas = ["juegos", "keys"];
-  if (!categoriasValidas.includes(categoria.toLowerCase())) {
-    return res
-      .status(400)
-      .json({ message: "Categoría inválida. Debe ser 'juegos' o 'keys'" });
-  }
-  //VALIDACION BACKEND
+  try {
+    const producto = await getProductById(id);
+    if (!producto) return res.status(404).send("Producto no encontrado");
 
-  await update({ nombre, precio, stock, categoria, imagen }, id);
-  res.redirect("/lista-productos");
+    const imagen = req.file?.path || producto.imagen;
+
+    // Validación
+    if (!categoria || !nombre || !precio || !imagen || stock === undefined)
+      return res.status(400).json({ message: "Todos los campos requeridos" });
+
+    if (
+      typeof categoria !== "string" ||
+      typeof nombre !== "string" ||
+      typeof imagen !== "string" ||
+      isNaN(Number(precio)) ||
+      isNaN(Number(stock))
+    ) {
+      return res.status(400).json({ message: "Tipos de datos inválidos" });
+    }
+
+    const categoriasValidas = ["juegos", "keys"];
+    if (!categoriasValidas.includes(categoria.toLowerCase())) {
+      return res
+        .status(400)
+        .json({ message: "Categoría inválida. Debe ser 'juegos' o 'keys'" });
+    }
+
+    await update(
+      {
+        nombre,
+        precio: Number(precio),
+        stock: Number(stock),
+        categoria,
+        imagen,
+      },
+      id
+    );
+
+    res.redirect("/lista-productos");
+  } catch (error) {
+    console.error("Error en updateProduct:", error);
+    res.status(500).json({ message: "Error interno", err: error.message });
+  }
 };
 
 export const toggleDisponible = async (req, res) => {
@@ -185,10 +202,10 @@ export const toggleDisponible = async (req, res) => {
     }
 
     // Cambiar el valor booleano
-    if (producto.stock != 0){
+    if (producto.stock != 0) {
       producto.activo = !producto.activo;
-      await producto.save();}
-    
+      await producto.save();
+    }
 
     res.redirect("/lista-productos");
   } catch (error) {

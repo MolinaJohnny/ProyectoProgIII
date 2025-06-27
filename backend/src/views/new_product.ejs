@@ -1,19 +1,31 @@
 <%- include("partials/nav.ejs") %>
-    <main>
-    
-        <form class="d-flex flex-column text-center align-items-center h4 gap-1" action="/api/products" method="POST">
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" placeholder="Escribe aqui " required>
-            <label for="categoria">Categoria:</label>
-            <input type="text" id="categoria" name="categoria" placeholder="Escribe aqui" required>
-            <label for="precio">Precio:</label>
-            <input type="text" id="precio" name="precio" placeholder="Escribe aqui" required>
-            <label for="imagen">Imagen:</label>
-            <input type="text" id="imagen" name="imagen" placeholder="Escribe aqui" required>
-            <label for="stock">Stock:</label>
-            <input type="text" id="stock" name="stock" placeholder="Escribe aqui" required>
-            <button type="submit">Registrar producto</button>
-        </form>
+<main class="container py-4">
+  <h2 class="text-center mb-4">Crear nuevo producto</h2>
 
-    </main>    
-<%- include('partials/footer.ejs') %>   
+  <form
+    class="d-flex flex-column text-center align-items-center h4 gap-3"
+    action="/api/products"
+    method="POST"
+    enctype="multipart/form-data"
+  >
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" required />
+
+    <label for="categoria">Categoría:</label>
+    <input type="text" id="categoria" name="categoria" required />
+
+    <label for="precio">Precio:</label>
+    <input type="text" id="precio" name="precio" required />
+
+    <label for="imagen">Imagen:</label>
+    <input type="file" id="imagen" name="imagen" accept="image/*" required />
+
+    <label for="stock">Stock:</label>
+    <input type="text" id="stock" name="stock" required />
+
+    <button type="submit" class="btn btn-success mt-3">
+      Registrar producto
+    </button>
+  </form>
+</main>
+<%- include("partials/footer.ejs") %>

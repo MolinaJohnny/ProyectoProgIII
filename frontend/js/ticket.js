@@ -39,7 +39,7 @@ function renderTicket() {
     acumulador += element.precio * element.cantidad;
   });
 
-  precio_total.innerText = `Precio Total : $${acumulador}`;
+  precio_total.innerText = `Precio Total : $${acumulador.toFixed(2)}`;
   const fechaObj = new Date();
   const fechaFormateada = fechaObj.toLocaleDateString();
   date.innerText = `Fecha : ${fechaFormateada}`;
@@ -47,7 +47,7 @@ function renderTicket() {
 
 function descargarPDF() {
   const element = document.getElementById("ticket");
-  element.classList.add('ticket-pdf');
+  element.classList.add("ticket-pdf");
 
   const opt = {
     margin: 0.5,
@@ -56,12 +56,13 @@ function descargarPDF() {
     html2canvas: { scale: 2, useCORS: true },
     jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
   };
-  html2pdf().set(opt).from(element).save().then(() =>{
-    element.classList.remove('ticket-pdf');
-
-  });
-  
-
+  html2pdf()
+    .set(opt)
+    .from(element)
+    .save()
+    .then(() => {
+      element.classList.remove("ticket-pdf");
+    });
 }
 
 function init() {

@@ -23,24 +23,31 @@
 
   <div id="listaProductos" class="row justify-content-center g-4">
     <% if (productos.length > 0) { %> <% productos.forEach(producto => { %>
-    <div class="card col-md-3 p-3 ">
+    <div class="card col-md-3 p-3">
       <div class="card-body">
         <h5 class="card-title"><%= producto.nombre %></h5>
         <p class="card-text">💰 Precio: $<%= producto.precio %></p>
         <p class="card-text">📦 Stock: <%= producto.stock %></p>
         <p class="card-text">🏷️ Categoría: <%= producto.categoria %></p>
-        <div class="text-center ">
-        <button
-          class="btn btn-primary col-12"
-          onclick="window.location.href='/modificar-producto/<%= producto.id %>'"
-        >
-          Modificar
-        </button>
-        <form action="/producto/<%= producto.id %>/toggle-activo" method="POST" style="display:inline;">
-              <button type="submit" class="btn col-12 <%= producto.activo ? 'btn-danger' : 'btn-success' %>">
-                <%= producto.activo ? 'Desactivar' : 'Activar' %>
-              </button>
-        </form>
+        <div class="text-center">
+          <a
+            href="/modificar-producto/<%= producto.id %>"
+            class="btn btn-primary col-12 mb-2"
+          >
+            Modificar
+          </a>
+          <form
+            action="/producto/<%= producto.id %>/toggle-activo"
+            method="POST"
+            style="display: inline"
+          >
+            <button
+              type="submit"
+              class="btn col-12 <%= producto.activo ? 'btn-danger' : 'btn-success' %>"
+            >
+              <%= producto.activo ? 'Desactivar' : 'Activar' %>
+            </button>
+          </form>
         </div>
       </div>
     </div>
