@@ -31,7 +31,13 @@ export const getIndexAdmin = async (req, res) => {
   res.render("index-admin");
 };
 export const getListProductos = async (req, res) => {
-  const productos = await getProducts();
+  const { categoria } = req.query;
+  let productos = await getProducts();
+
+  if (categoria && categoria !== "todos") {
+    productos = productos.filter(p => p.categoria === categoria);
+  }
+
   res.render("listProductos", { productos });
 };
 

@@ -1,6 +1,5 @@
 <%- include("partials/nav.ejs") %>
 <main class="container py-4">
-  <h2 class="text-center mb-4">Crear nuevo producto</h2>
 
   <form
     class="d-flex flex-column text-center align-items-center h4 gap-3"
@@ -8,6 +7,8 @@
     method="POST"
     enctype="multipart/form-data"
   >
+    <h3 class="text-center mb-4">Crear nuevo producto</h3>
+
     <label for="nombre">Nombre:</label>
     <input type="text" id="nombre" name="nombre" required />
 
