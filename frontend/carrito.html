@@ -25,21 +25,25 @@
           href="/index.html"
           class="btn btn-outline-info btn-sm material-symbols-rounded"
           title="Inicio"
-          >home</a>
+          >home</a
+        >
         <a
           href="/productos"
           class="btn btn-outline-info btn-sm material-symbols-rounded"
           title="Productos"
-          >storefront</a>
+          >storefront</a
+        >
         <a
           href="/carrito"
           class="btn btn-outline-info btn-sm material-symbols-rounded"
           title="Carrito"
-          >shopping_cart</a>
+          >shopping_cart</a
+        >
         <button
           onclick="cambiarTema()"
           class="btn btn-outline-light btn-sm material-symbols-rounded"
-          title="Tema">
+          title="Tema"
+        >
           dark_mode
         </button>
       </nav>
@@ -64,7 +68,9 @@
           </button>
           <p class="m-5" id="cantidad_productos">CANTIDAD DE PRODUCTOS</p>
           <p class="h1 m-5" id="precio_total">$PRECIO TOTAL</p>
-          <a href="/productos" class="btn btn-danger m-5" id="cancelar_compra">CANCELAR COMPRA</a>
+          <a href="/productos" class="btn btn-danger m-5" id="cancelar_compra"
+            >CANCELAR COMPRA</a
+          >
         </section>
         <div class="modal" id="modalConfirmarCompra">
           <div class="modal-dialog">
@@ -73,7 +79,9 @@
               <div class="modal-body"><h5>Confirme la compra</h5></div>
               <div class="modal-footer">
                 <a href="/carrito" class="btn btn-danger">Cancelar</a>
-                <a href="/ticket" class="btn btn-success" id="confirmar_compra">Confirmar</a>
+                <a href="/ticket" class="btn btn-success" id="confirmar_compra"
+                  >Confirmar</a
+                >
               </div>
             </div>
           </div>
@@ -111,5 +119,6 @@
     ></script>
     <script src="./js/carrito.js"></script>
     <script src="./js/temas.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
 </html>

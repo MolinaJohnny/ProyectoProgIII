@@ -157,6 +157,20 @@ btn_cancelar.addEventListener("click", () => {
 
 // SOLO ABRE EL MODAL, NO COMPRA
 btn_finalizar.addEventListener("click", () => {
+  if (listaCarrito.length === 0) {
+    Swal.fire({
+      toast: true,
+      position: "bottom",
+      icon: "warning",
+      title: "El carrito esta vacio",
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: true,
+      background: "#222",
+      color: "#fff",
+    });
+    return;
+  }
   let modal = new bootstrap.Modal(
     document.getElementById("modalConfirmarCompra")
   );
@@ -166,10 +180,6 @@ btn_finalizar.addEventListener("click", () => {
 // CONFIRMA LA COMPRA SOLO CUANDO EL USUARIO ACEPTA EN EL MODAL
 btn_confirmar.addEventListener("click", async (e) => {
   e.preventDefault();
-  if (listaCarrito.length === 0) {
-    alert("El carrito está vacío.");
-    return;
-  }
 
   try {
     const res = await fetch("/api/ventas", {

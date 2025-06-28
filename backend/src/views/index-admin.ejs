@@ -1,21 +1,37 @@
 <%- include('partials/nav.ejs') %>
 
-
-
-    <main>
-        <h2>¡Bienvenido!</h2>
-        <p>Ingrese sus credenciales:</p>
-        <form action="/index-admin" method="POST">
-        <div class="container py-4 w-auto ">
-        <input type="email" name="email" class="form-control mb-3" id="emailCliente" placeholder="Email"  required/>
-        <input type="password" name="password" class="form-control mb-3" id="passCliente" placeholder="Contraseña"  required/>
-        </div>
-                <button type="submit" id="btnContinuar">Continuar</button>
-
-        </form>
-        <a href="/lista-productos">Acceso Test</a>
-    </main>
-
-
-
+<main>
+  <h2>¡Bienvenido!</h2>
+  <p>Ingrese sus credenciales:</p>
+  <% if (typeof error !== "undefined") { %>
+  <div
+    class="alert alert-danger text-center mx-auto my-3"
+    style="max-width: 400px; font-size: 1rem; padding: 8px 16px"
+  >
+    <%= error %>
+  </div>
+  <% } %>
+  <form action="/index-admin" method="POST">
+    <div class="container py-4 w-auto">
+      <input
+        type="email"
+        name="email"
+        class="form-control mb-3"
+        id="emailCliente"
+        placeholder="Email"
+        required
+      />
+      <input
+        type="password"
+        name="password"
+        class="form-control mb-3"
+        id="passCliente"
+        placeholder="Contraseña"
+        required
+      />
+    </div>
+    <button type="submit" id="btnContinuar">Continuar</button>
+  </form>
+  <a href="/lista-productos">Acceso Test</a>
+</main>
 <%- include('partials/footer.ejs') %>

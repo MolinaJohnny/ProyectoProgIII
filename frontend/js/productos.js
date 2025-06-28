@@ -103,5 +103,15 @@ function agregarAlCarrito(idProducto) {
   }
 
   localStorage.setItem("productos_carrito", JSON.stringify(carrito));
-  alert(`Agregado al carrito: ${producto.nombre}`);
+  Swal.fire({
+    toast: true,
+    position: "bottom-start",
+    icon: "success",
+    title: `Agregado al carrito: ${producto.nombre}`,
+    showConfirmButton: false,
+    timer: 2500,
+    timerProgressBar: true,
+    background: "#222",
+    color: "#fff",
+  });
 }
