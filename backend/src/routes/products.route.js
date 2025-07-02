@@ -14,7 +14,6 @@ import {
   updateProduct,
   toggleDisponible,
 } from "../controllers/products.controller.js";
-import { getProducts } from "../services/product.service.js";
 import { getVentasAdmin } from "../controllers/products.controller.js";
 
 import upload from "../middlewares/multer-cloudinary.middleware.js";

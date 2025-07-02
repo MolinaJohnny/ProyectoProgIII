@@ -5,6 +5,10 @@ const btn_confirmar = document.getElementById("confirmar_compra");
 const precioTotal = document.getElementById("precio_total");
 const cantidad_productos = document.getElementById("cantidad_productos");
 
+if (!localStorage.getItem("clienteNombre")) {
+  window.location.href = "/index.html";
+}
+
 let listaCarrito = [];
 
 // Renderiza el carrito y muestra los productos

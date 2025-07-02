@@ -8,6 +8,7 @@ export const sequelize = new Sequelize(database, user, password, {
   host: host,
   dialect: "mysql", //dialecto (con que tipo de db va a trabajar)
   port: port, //configurar en variable de entorno
+  logging: false,
 });
 
 try {

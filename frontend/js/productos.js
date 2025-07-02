@@ -1,46 +1,6 @@
-// document.addEventListener("DOMContentLoaded", () => {
-//   const nombre = localStorage.getItem("clienteNombre") || "Cliente";
-//   document.getElementById(
-//     "clienteBienvenida"
-//   ).textContent = `¡Hola, ${nombre}!`;
-
-//   mostrarCategoria("todos"); // Mostrar todo al iniciar
-// });
-
-// const productos = [
-//   {
-//     id: 1,
-//     categoria: "juegos",
-//     nombre: "Elden Ring",
-//     precio: 9999,
-//     imagen: "assets/juegos/eldenring.jpg",
-//     activo: true
-//   },
-//   {
-//     id: 2,
-//     categoria: "juegos",
-//     nombre: "God of War",
-//     precio: 8999,
-//     imagen: "assets/juegos/gow.jpg",
-//     activo: true
-//   },
-//   {
-//     id: 3,
-//     categoria: "keys",
-//     nombre: "Steam Key - Hollow Knight",
-//     precio: 1200,
-//     imagen: "assets/keys/steam_hk.jpg",
-//     activo: true
-//   },
-//   {
-//     id: 4,
-//     categoria: "keys",
-//     nombre: "PSN Key - Horizon",
-//     precio: 3000,
-//     imagen: "assets/keys/ps_horizon.jpg",
-//     activo: true
-//   }
-// ];
+if (!localStorage.getItem("clienteNombre")) {
+  window.location.href = "/index.html";
+}
 
 let productos = [];
 

@@ -4,6 +4,10 @@ const date = document.getElementById("fecha");
 const btnDescargar = document.getElementById("descargar");
 const nombreUsuario = document.getElementById("nombre_usuario_ticket"); // <--- referencia correcta
 
+if (!localStorage.getItem("clienteNombre")) {
+  window.location.href = "/index.html";
+}
+
 let listaCarrito = [];
 
 function renderTicket() {
@@ -73,6 +77,7 @@ function init() {
   // Redirige a inicio después de 10 segundos
   setTimeout(() => {
     window.location.href = "/index.html";
+    localStorage.removeItem("clienteNombre");
   }, 10000);
 
   // Evento para descargar el PDF
