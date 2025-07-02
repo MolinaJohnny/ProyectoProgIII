@@ -96,7 +96,7 @@ export const createProduct = async (req, res) => {
       stock: Number(stock),
     });
 
-    res.redirect("/lista-productos");
+    res.redirect("lista-productos");
   } catch (error) {
     res
       .status(500)
