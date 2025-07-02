@@ -64,7 +64,7 @@ export const getAllProducts = async (req, res) => {
 export const getVentasAdmin = async (req, res) => {
   try {
     const ventas = await getVentas();
-    res.render("Ventas_admin", { ventas });
+    res.render("ventas_admin", { ventas });
   } catch (error) {
     res
       .status(500)
