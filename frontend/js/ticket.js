@@ -54,7 +54,7 @@ function descargarPDF() {
   element.classList.add("ticket-pdf");
 
   const opt = {
-    margin: 0.5,
+    margin: 0.1,
     filename: "ticket_compra.pdf",
     image: { type: "jpeg", quality: 0.98 },
     html2canvas: { scale: 2, useCORS: true },

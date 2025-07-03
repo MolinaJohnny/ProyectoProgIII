@@ -3,14 +3,14 @@ if (!localStorage.getItem("clienteNombre")) {
 }
 
 let productos = [];
+let categoriaActual = "todos";
+let productosPorPagina = 8;
+let paginaActual = 1;
 
 document.addEventListener("DOMContentLoaded", async () => {
   const nombre = localStorage.getItem("clienteNombre") || "Cliente";
-  document.getElementById(
-    "clienteBienvenida"
-  ).textContent = `¡Hola, ${nombre}!`;
+  document.getElementById("clienteBienvenida").textContent = `¡Hola, ${nombre}!`;
 
-  // Obtener productos desde la API
   try {
     const res = await fetch("/api/products");
     const data = await res.json();
@@ -19,18 +19,42 @@ document.addEventListener("DOMContentLoaded", async () => {
   } catch (error) {
     console.error("Error al cargar productos:", error);
   }
+
+  
+  document.getElementById("btnAnterior").addEventListener("click", () => cambiarPagina(-1));
+  document.getElementById("btnSiguiente").addEventListener("click", () => cambiarPagina(1));
 });
 
+const buscador = document.getElementById("buscador");
+
 function mostrarCategoria(categoria) {
+  categoriaActual = categoria;
+  paginaActual = 1; 
+  renderizarProductos(); 
+}
+
+function renderizarProductos() {
   const contenedor = document.getElementById("listaProductos");
   contenedor.innerHTML = "";
 
-  const filtrados =
-    categoria === "todos"
-      ? productos.filter((p) => p.activo)
-      : productos.filter((p) => p.activo && p.categoria === categoria);
+  const textoBusqueda = buscador.value.toLowerCase().trim();
 
-  filtrados.forEach((prod) => {
+  const filtrados = productos.filter((p) => {
+    const coincideCategoria = categoriaActual === "todos" || p.categoria === categoriaActual;
+    const coincideBusqueda = p.nombre.toLowerCase().includes(textoBusqueda);
+    return p.activo && coincideCategoria && coincideBusqueda;
+  });
+    
+  // Se divide la cantidad de productos por la cantidad de productos x pagina y se redondea el valor hacia arrib.
+  const totalPaginas = Math.ceil(filtrados.length / productosPorPagina);
+
+  // Esto sirve para mostrar solo una parte del total de productos, según la página seleccionada.
+
+  const inicio = (paginaActual - 1) * productosPorPagina;
+  const fin = inicio + productosPorPagina;
+  const productosPagina = filtrados.slice(inicio, fin); 
+
+  productosPagina.forEach((prod) => {
     const card = document.createElement("div");
     card.className = "col-12 col-sm-6 col-md-4 col-lg-3";
     card.innerHTML = `
@@ -47,7 +71,21 @@ function mostrarCategoria(categoria) {
     `;
     contenedor.appendChild(card);
   });
+
+  document.getElementById("paginaActual").textContent = `Página ${paginaActual} de ${totalPaginas}`;
+  document.getElementById("btnAnterior").disabled = paginaActual === 1;
+  document.getElementById("btnSiguiente").disabled = paginaActual === totalPaginas || totalPaginas === 0;
 }
+
+function cambiarPagina(direccion) {
+  paginaActual += direccion;
+  renderizarProductos();
+}
+
+buscador.addEventListener("input", () => {
+  paginaActual = 1; 
+  renderizarProductos();
+});
 
 function agregarAlCarrito(idProducto) {
   const producto = productos.find((p) => p.id === idProducto);
@@ -55,11 +93,12 @@ function agregarAlCarrito(idProducto) {
 
   let carrito = JSON.parse(localStorage.getItem("productos_carrito")) || [];
   const index = carrito.findIndex((p) => p.id === idProducto);
-
+  // Si el producto ya existe en el carrito
   if (index > -1) {
-    carrito[index].cantidad += 1; // Aumentar cantidad si ya existe
+    carrito[index].cantidad += 1;
+  // Si el producto no se encuentra en el carrito
   } else {
-    carrito.push({ ...producto, cantidad: 1 }); // Agregar nuevo producto
+    carrito.push({ ...producto, cantidad: 1 });
   }
 
   localStorage.setItem("productos_carrito", JSON.stringify(carrito));

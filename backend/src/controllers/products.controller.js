@@ -64,8 +64,6 @@ export const getAllProducts = async (req, res) => {
     let { limit, offset } = req.query;
     limit = parseInt(limit, 10);
     offset = parseInt(offset, 10);
-    limit = isNaN(limit) ? 10 : limit;
-    offset = isNaN(offset) ? 0 : offset;
     const products = await getProducts({ limit, offset });
     res.status(200).json({
       message: "Lista de productos",

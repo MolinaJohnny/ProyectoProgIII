@@ -1,9 +1,7 @@
 import { Product } from "../models/product.model.js";
 
-export const getProducts = async ({ limit = 10, offset = 10 }) => {
+export const getProducts = async () => {
   return await Product.findAndCountAll({
-    limit: limit,
-    offset: offset,
     order: [["createdAt", "DESC"]],
   });
 };

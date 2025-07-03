@@ -37,6 +37,15 @@
       Crear producto
     </button>
   </div>
+        <div class="d-flex justify-content-center mb-3">
+        <input
+          type="text"
+          id="buscador"
+          class="form-control w-50"
+          placeholder="Buscar productos..."
+          oninput="buscarProductos()"
+        />
+  </div>
 
   <div id="listaProductos" class="row justify-content-center g-4">
     <% if (productos.length > 0) { %> <% productos.forEach(producto => { %>

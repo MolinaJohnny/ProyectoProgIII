@@ -63,9 +63,22 @@
           🔑 Juegos digitales
         </button>
       </div>
-
-      <div id="listaProductos" class="row justify-content-center g-4"></div>
-      <div id="paginacion" class="d-flex justify-content-center mt-4 gap-2"></div>
+      <div class="d-flex justify-content-center mb-3">
+        <input
+          type="text"
+          id="buscador"
+          class="form-control w-50"
+          placeholder="Buscar productos..."
+        />
+        
+      </div>
+      <div id="listaProductos" class="row justify-content-center g-4 mt-2"></div>
+      <div id="paginacion" class="d-flex justify-content-center mt-2 gap-2" ></div>
+      <div class="d-flex justify-content-between align-items-center mt-4">
+        <button id="btnAnterior" class="btn btn-outline-primary">← Anterior</button>
+        <span id="paginaActual">Página 1</span>
+        <button id="btnSiguiente" class="btn btn-outline-primary">Siguiente →</button>
+      </div>
     </main>
 
     <script src="js/temas.js"></script>
