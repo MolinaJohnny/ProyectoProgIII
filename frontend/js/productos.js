@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     const res = await fetch("/api/products");
     const data = await res.json();
-    productos = data.payload || [];
+    productos = data.payload.rows || [];
     mostrarCategoria("todos");
   } catch (error) {
     console.error("Error al cargar productos:", error);

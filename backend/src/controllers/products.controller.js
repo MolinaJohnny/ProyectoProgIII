@@ -41,7 +41,9 @@ export const getIndexAdmin = async (req, res) => {
 //renderiza los productos categoria todos, vista admin
 export const getListProductos = async (req, res) => {
   const { categoria } = req.query;
-  let productos = await getProducts();
+  const { rows } = await getProducts({ limit: 1000, offset: 0 });
+
+  let productos = rows;
 
   if (categoria && categoria !== "todos") {
     productos = productos.filter((p) => p.categoria === categoria);
@@ -52,16 +54,23 @@ export const getListProductos = async (req, res) => {
 
 //renderiza el form
 export const getNewProduct = async (req, res) => {
-  const productos = await getProducts();
-
-  res.render("new_product", { productos: productos || [] });
+  const { rows } = await getProducts({ limit: 100, offset: 0 });
+  res.render("new_product", { productos: rows });
 };
 
 // API: Obtener todos los productos
 export const getAllProducts = async (req, res) => {
   try {
-    const products = await getProducts();
-    res.status(200).json({ message: "Lista de productos", payload: products });
+    let { limit, offset } = req.query;
+    limit = parseInt(limit, 10);
+    offset = parseInt(offset, 10);
+    limit = isNaN(limit) ? 10 : limit;
+    offset = isNaN(offset) ? 0 : offset;
+    const products = await getProducts({ limit, offset });
+    res.status(200).json({
+      message: "Lista de productos",
+      payload: { limit, offset, ...products },
+    });
   } catch (error) {
     res
       .status(500)
