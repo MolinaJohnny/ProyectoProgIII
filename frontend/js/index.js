@@ -12,3 +12,4 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 localStorage.setItem("productos_carrito", JSON.stringify(""));
+localStorage.removeItem("clienteNombre");

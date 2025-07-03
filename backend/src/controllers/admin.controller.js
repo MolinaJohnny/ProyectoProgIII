@@ -55,8 +55,9 @@ export const loginAdmin = async (req, res) => {
         .status(401)
         .render("index-admin", { error: "Contraseña incorrecta" });
     }
-    console.log("lola");
     // Si todo está bien, redirige al panel o dashboard
+    req.session.rol = 'admin';
+
     res.redirect("/lista-productos");
   } catch (error) {
     res

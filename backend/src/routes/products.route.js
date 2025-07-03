@@ -15,7 +15,7 @@ import {
   toggleDisponible,
 } from "../controllers/products.controller.js";
 import { getVentasAdmin } from "../controllers/products.controller.js";
-
+import { verificarAdmin } from "../middlewares/auth.middleware.js";
 import upload from "../middlewares/multer-cloudinary.middleware.js";
 
 const router = Router();
@@ -25,11 +25,12 @@ router.get("/", getIndex);
 router.get("/productos", getProductos);
 router.get("/carrito", getCarrito);
 router.get("/ticket", getTicket);
-router.get("/index-admin", getIndexAdmin);
-router.get("/lista-productos", getListProductos);
-router.get("/mod-producto", getNewProduct);
 
-router.get("/ventas", getVentasAdmin);
+// Rutas de administración (backend)
+router.get("/index-admin", getIndexAdmin);
+router.get("/lista-productos",verificarAdmin, getListProductos);
+router.get("/mod-producto",verificarAdmin, getNewProduct);
+router.get("/ventas",verificarAdmin, getVentasAdmin);
 
 // Rutas de API para productos (CRUD)
 router.get("/api/products", getAllProducts);

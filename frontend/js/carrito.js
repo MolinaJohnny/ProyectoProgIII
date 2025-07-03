@@ -112,8 +112,22 @@ function addCarrito(element) {
   const productoExistente = listaCarrito.find((item) => item.id === element.id);
 
   if (productoExistente && productoExistente.cantidad >= element.stock) {
-    document.getElementById(`add-${element.id}`).disabled = true;
-    return;
+    const botonAgregar = document.getElementById(`add-${element.id}`);
+    if (botonAgregar) {
+      botonAgregar.disabled = true;
+    }  
+      Swal.fire({
+    toast: true,
+    position: "bottom-start",
+    icon: "error",
+    title: `No hay stock suficiente`,
+    showConfirmButton: false,
+    timer: 2500,
+    timerProgressBar: true,
+    background: "#222",
+    color: "#fff",
+  });
+  return;
   }
 
   if (productoExistente) {

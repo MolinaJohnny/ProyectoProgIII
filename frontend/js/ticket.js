@@ -2,7 +2,7 @@ const contenedor = document.querySelector(".productos");
 const precio_total = document.getElementById("precio_total");
 const date = document.getElementById("fecha");
 const btnDescargar = document.getElementById("descargar");
-const nombreUsuario = document.getElementById("nombre_usuario_ticket"); // <--- referencia correcta
+const nombreUsuario = document.getElementById("nombre_usuario_ticket");
 
 if (!localStorage.getItem("clienteNombre")) {
   window.location.href = "/index.html";

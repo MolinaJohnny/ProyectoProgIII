@@ -11,7 +11,12 @@ import { Venta } from "../models/venta.model.js";
 
 // Rutas para servir archivos frontend
 export const getIndex = (req, res) => {
+
+  req.session.rol = 'usuario';
+  console.log("Ingreso al index, rol reiniciado a:", req.session.rol);
+
   res.sendFile(join(__dirname, "../../frontend/index.html")); //
+
 };
 
 export const getProductos = (req, res) => {
@@ -28,7 +33,11 @@ export const getTicket = (req, res) => {
 
 // Rutas para servir archivos BACKEND
 export const getIndexAdmin = async (req, res) => {
-  res.render("index-admin");
+  const mensaje = req.session.errorAcceso;
+
+  req.session.errorAcceso = null;
+
+  res.render("index-admin", {error: mensaje});
 };
 export const getListProductos = async (req, res) => {
   const { categoria } = req.query;
@@ -37,6 +46,7 @@ export const getListProductos = async (req, res) => {
   if (categoria && categoria !== "todos") {
     productos = productos.filter(p => p.categoria === categoria);
   }
+  console.log("ROL ACTUAL EN /admin:", req.session.rol);
 
   res.render("listProductos", { productos });
 };
