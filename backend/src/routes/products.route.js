@@ -13,6 +13,7 @@ import {
   getEditProduct,
   updateProduct,
   toggleDisponible,
+  deleteProduct,
 } from "../controllers/products.controller.js";
 import { getVentasAdmin } from "../controllers/products.controller.js";
 import { verificarAdmin } from "../middlewares/auth.middleware.js";
@@ -28,13 +29,15 @@ router.get("/ticket", getTicket);
 
 // Rutas de administración (backend)
 router.get("/index-admin", getIndexAdmin);
-router.get("/lista-productos",verificarAdmin, getListProductos);
-router.get("/mod-producto",verificarAdmin, getNewProduct);
-router.get("/ventas",verificarAdmin, getVentasAdmin);
+router.get("/lista-productos", verificarAdmin, getListProductos);
+router.get("/mod-producto", verificarAdmin, getNewProduct);
+router.get("/ventas", verificarAdmin, getVentasAdmin);
 
 // Rutas de API para productos (CRUD)
 router.get("/api/products", getAllProducts);
 router.post("/api/products", upload.single("imagen"), createProduct);
+
+router.post("/producto/:id/eliminar", deleteProduct);
 
 router.post("/api/ventas", registrarVentas);
 

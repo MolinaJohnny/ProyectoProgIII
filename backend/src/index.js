@@ -17,19 +17,14 @@ app.set("views", join(__dirname, "views"));
 // Aplica middlewares generales
 middlewares(app);
 
-
-
 // Configuración de sesión
-app.use(session({
-  secret: 'clave_secreta',
-  resave: false,
-  saveUninitialized: true,
-}));
-// Middleware para pasar la sesión a las vistas
-app.use((req, res, next) => {
-  res.locals.session = req.session;
-  next();
-});
+app.use(
+  session({
+    secret: "clave_secreta",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 // Rutas de API y frontend
 app.use("/", productRoutes);
@@ -37,7 +32,7 @@ app.use("/", adminRoutes);
 
 // Servir archivos estáticos de la carpeta frontend
 app.use(express.static(join(__dirname, "../../frontend")));
-  
+
 // Inicializa la conexión y sincronización con la base de datos
 const initializeConnection = async () => {
   try {

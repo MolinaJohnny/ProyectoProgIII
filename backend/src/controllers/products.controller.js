@@ -11,12 +11,10 @@ import { Venta } from "../models/venta.model.js";
 
 // Rutas para servir archivos frontend
 export const getIndex = (req, res) => {
-
-  req.session.rol = 'usuario';
+  req.session.rol = "usuario";
   console.log("Ingreso al index, rol reiniciado a:", req.session.rol);
 
   res.sendFile(join(__dirname, "../../frontend/index.html")); //
-
 };
 
 export const getProductos = (req, res) => {
@@ -37,20 +35,22 @@ export const getIndexAdmin = async (req, res) => {
 
   req.session.errorAcceso = null;
 
-  res.render("index-admin", {error: mensaje});
+  res.render("index-admin", { error: mensaje });
 };
+
+//renderiza los productos categoria todos, vista admin
 export const getListProductos = async (req, res) => {
   const { categoria } = req.query;
   let productos = await getProducts();
 
   if (categoria && categoria !== "todos") {
-    productos = productos.filter(p => p.categoria === categoria);
+    productos = productos.filter((p) => p.categoria === categoria);
   }
-  console.log("ROL ACTUAL EN /admin:", req.session.rol);
 
   res.render("listProductos", { productos });
 };
 
+//renderiza el form
 export const getNewProduct = async (req, res) => {
   const productos = await getProducts();
 
@@ -61,7 +61,6 @@ export const getNewProduct = async (req, res) => {
 export const getAllProducts = async (req, res) => {
   try {
     const products = await getProducts();
-    // res.render("index-admin", { productos: products });
     res.status(200).json({ message: "Lista de productos", payload: products });
   } catch (error) {
     res
@@ -82,6 +81,7 @@ export const getVentasAdmin = async (req, res) => {
   }
 };
 
+//metodo form crear producto
 export const createProduct = async (req, res) => {
   try {
     const { categoria, nombre, precio, stock } = req.body;
@@ -98,7 +98,7 @@ export const createProduct = async (req, res) => {
         .json({ message: "Categoría inválida. Debe ser 'juegos' o 'keys'" });
     }
 
-    const newProduct = await create({
+    await create({
       categoria,
       nombre,
       precio: Number(precio),
@@ -106,7 +106,7 @@ export const createProduct = async (req, res) => {
       stock: Number(stock),
     });
 
-    res.redirect("lista-productos");
+    res.redirect("/lista-productos");
   } catch (error) {
     res
       .status(500)
@@ -114,6 +114,7 @@ export const createProduct = async (req, res) => {
   }
 };
 
+//funcion registrar ventas
 export const registrarVentas = async (req, res) => {
   try {
     const { ventas } = req.body;
@@ -226,5 +227,20 @@ export const toggleDisponible = async (req, res) => {
     res.redirect("/lista-productos");
   } catch (error) {
     res.status(500).send("Error al actualizar el producto");
+  }
+};
+
+export const deleteProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleted = await deleteP(id);
+    if (!deleted) {
+      return res.status(404).json({ message: "Producto no encontrado" });
+    }
+    res.redirect("/lista-productos");
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error al eliminar producto", err: error.message });
   }
 };

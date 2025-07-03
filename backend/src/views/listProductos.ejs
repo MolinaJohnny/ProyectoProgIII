@@ -1,19 +1,41 @@
 <%- include("partials/nav.ejs") %>
 <main class="container py-4 text-center">
   <div id="clienteBienvenida" class="mb-3 h4"></div>
-  <div class="mb-4 d-flex flex-wrap justify-content-center gap-3 filtros-categorias">
+  <div
+    class="mb-4 d-flex flex-wrap justify-content-center gap-3 filtros-categorias"
+  >
     <form method="GET" action="/lista-productos" class="d-flex flex-wrap gap-2">
-      <button type="submit" name="categoria" value="todos" class="btn btn-secondary">
+      <button
+        type="submit"
+        name="categoria"
+        value="todos"
+        class="btn btn-secondary"
+      >
         🛍️ Todos
       </button>
-      <button type="submit" name="categoria" value="juegos" class="btn btn-primary">
+      <button
+        type="submit"
+        name="categoria"
+        value="juegos"
+        class="btn btn-primary"
+      >
         🎮 Juegos físicos
       </button>
-      <button type="submit" name="categoria" value="keys" class="btn btn-success">
+      <button
+        type="submit"
+        name="categoria"
+        value="keys"
+        class="btn btn-success"
+      >
         🔑 Juegos digitales
       </button>
     </form>
-    <button onclick="window.location.href= '/mod-producto'"class="btn btn-success">Crear producto</button> 
+    <button
+      onclick="window.location.href= '/mod-producto'"
+      class="btn btn-success"
+    >
+      Crear producto
+    </button>
   </div>
 
   <div id="listaProductos" class="row justify-content-center g-4">
@@ -41,6 +63,16 @@
               class="btn col-12 <%= producto.activo ? 'btn-danger' : 'btn-success' %>"
             >
               <%= producto.activo ? 'Desactivar' : 'Activar' %>
+            </button>
+          </form>
+          <form
+            action="/producto/<%= producto.id %>/eliminar"
+            method="POST"
+            style="display: inline"
+            onsubmit="return confirm('¿Seguro que deseas eliminar este producto?');"
+          >
+            <button type="submit" class="btn btn-outline-danger col-12 mt-2">
+              Eliminar
             </button>
           </form>
         </div>
