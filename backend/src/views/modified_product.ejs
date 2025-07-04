@@ -35,10 +35,10 @@
       value="<%= producto.precio %>"
       required
     />
-
-    <label for="imagen">Imagen (nueva, opcional):</label>
-    <input type="file" id="imagen" name="imagen" accept="image/*" />
-
+    <div class="d-flex flex-column justify-content-center">
+      <label for="imagen">Imagen (nueva, opcional):</label>
+      <input class=" d-flex w-100 justify-content-center" type="file" id="imagen" name="imagen" accept="image/*" />
+    </div>
     <% if (producto.imagen) { %>
     <p class="mt-2">Imagen actual:</p>
     <img

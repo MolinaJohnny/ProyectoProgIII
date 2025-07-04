@@ -8,6 +8,7 @@ import {
 } from "../services/product.service.js";
 import { getVentas } from "../services/venta.service.js";
 import { Venta } from "../models/venta.model.js";
+import { Product } from "../models/product.model.js";
 
 // Rutas para servir archivos frontend
 export const getIndex = (req, res) => {
@@ -40,16 +41,26 @@ export const getIndexAdmin = async (req, res) => {
 
 //renderiza los productos categoria todos, vista admin
 export const getListProductos = async (req, res) => {
-  const { categoria } = req.query;
+  const { categoria, busqueda = "" } = req.query;
   const { rows } = await getProducts({ limit: 1000, offset: 0 });
-
   let productos = rows;
 
   if (categoria && categoria !== "todos") {
     productos = productos.filter((p) => p.categoria === categoria);
   }
 
-  res.render("listProductos", { productos });
+  if (busqueda.trim() !== "") {
+    const texto = busqueda.toLowerCase().trim();
+    productos = productos.filter((p) =>
+      p.nombre.toLowerCase().trim().includes(texto)
+    );
+  }
+
+  res.render("listProductos", {
+    productos,
+    categoria,
+    busqueda, 
+  })
 };
 
 //renderiza el form
