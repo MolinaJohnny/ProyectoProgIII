@@ -4,47 +4,64 @@ const date = document.getElementById("fecha");
 const btnDescargar = document.getElementById("descargar");
 const nombreUsuario = document.getElementById("nombre_usuario_ticket");
 
-if (!localStorage.getItem("clienteNombre")) {
-  window.location.href = "/index.html";
+// Obtener el ID de la venta desde la URL (?id=123)
+function getVentaIdFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("id");
 }
 
 let listaCarrito = [];
 
-function renderTicket() {
-  // Mostrar el nombre del usuario si existe en localStorage
-  const nombreGuardado = localStorage.getItem("clienteNombre");
-  if (nombreUsuario && nombreGuardado) {
-    nombreUsuario.textContent = nombreGuardado;
+async function obtenerVenta(id) {
+  const res = await fetch(`/api/ventas/${id}`);
+  if (!res.ok) throw new Error("No se pudo obtener la venta");
+  const data = await res.json();
+  return data;
+}
+
+function renderTicket({ venta, productos }) {
+  // Mostrar el nombre del usuario
+  if (nombreUsuario && venta && venta.usuario) {
+    nombreUsuario.textContent = venta.usuario;
   } else if (nombreUsuario) {
     nombreUsuario.textContent = "NOMBRE USUARIO";
   }
 
-  // Limpiar productos antes de renderizar
   contenedor.innerHTML = `
-        <div class="row fw-bold border-bottom pb-2 mb-2">
-            <div class="col-4">Producto</div>
-            <div class="col-2">Cant.</div>
-            <div class="col-3">Unitario</div>
-            <div class="col-3">Total</div>
-        </div>
-    `;
+    <div class="row fw-bold border-bottom pb-2 mb-2">
+      <div class="col-4">Producto</div>
+      <div class="col-2">Cant.</div>
+      <div class="col-3">Unitario</div>
+      <div class="col-3">Total</div>
+    </div>
+  `;
 
-  let acumulador = 0;
-  listaCarrito.forEach((element) => {
+  // Mostrar productos si existen
+  if (productos && productos.length > 0) {
+    productos.forEach((prod) => {
+      const div = document.createElement("div");
+      div.className = "row col-12 d-flex";
+      div.innerHTML = `
+        <p class="text-wrap col-4">${prod.nombre}</p>
+        <p class="text-wrap col-2">${prod.cantidad}</p>
+        <p class="text-wrap col-3">$${prod.precio.toFixed(2)}</p>
+        <p class="col-3">$${(prod.precio * prod.cantidad).toFixed(2)}</p>`;
+      contenedor.appendChild(div);
+    });
+  } else {
+    // Fallback si no hay detalle
     const div = document.createElement("div");
     div.className = "row col-12 d-flex";
     div.innerHTML = `
-            <p class="text-wrap col-4">${element.nombre}</p>
-            <p class="text-wrap col-2">${element.cantidad}</p>
-            <p class="text-wrap col-3 ">$${element.precio}</p>
-            <p class="col-3">$${element.precio * element.cantidad}</p>`;
+      <p class="text-wrap col-4">Productos varios</p>
+      <p class="text-wrap col-2">${venta.cantidad_productos}</p>
+      <p class="text-wrap col-3 ">-</p>
+      <p class="col-3">$${venta.precio_total.toFixed(2)}</p>`;
     contenedor.appendChild(div);
+  }
 
-    acumulador += element.precio * element.cantidad;
-  });
-
-  precio_total.innerText = `Precio Total : $${acumulador.toFixed(2)}`;
-  const fechaObj = new Date();
+  precio_total.innerText = `Precio Total : $${venta.precio_total.toFixed(2)}`;
+  const fechaObj = new Date(venta.fecha);
   const fechaFormateada = fechaObj.toLocaleDateString();
   date.innerText = `Fecha : ${fechaFormateada}`;
 }
@@ -69,21 +86,29 @@ function descargarPDF() {
     });
 }
 
-function init() {
-  // Usa la copia del carrito para el ticket
-  listaCarrito = JSON.parse(localStorage.getItem("ticket_compra")) || [];
-  renderTicket();
-
-  // Redirige a inicio después de 10 segundos
-  setTimeout(() => {
+async function init() {
+  const ventaId = getVentaIdFromUrl();
+  if (!ventaId) {
     window.location.href = "/index.html";
-    localStorage.removeItem("clienteNombre");
-  }, 10000);
+    return;
+  }
 
-  // Evento para descargar el PDF
+  try {
+    const data = await obtenerVenta(ventaId);
+    renderTicket(data);
+  } catch (error) {
+    alert("No se pudo cargar el ticket");
+    window.location.href = "/index.html";
+    return;
+  }
+
   if (btnDescargar) {
     btnDescargar.addEventListener("click", descargarPDF);
   }
+
+  setTimeout(() => {
+    window.location.href = "/index.html";
+  }, 10000);
 }
 
 init();

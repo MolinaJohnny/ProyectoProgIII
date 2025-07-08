@@ -1,7 +1,15 @@
-import { findPk, create } from "../services/admin.services.js";
+import { findPk, create, getAdminByEmail } from "../services/admin.service.js";
 import { hashPassword } from "../helpers/authHelper.js";
-import { getAdminByEmail } from "../services/admin.services.js";
+
 import bcrypt from "bcrypt";
+
+export const getIndexAdmin = async (req, res) => {
+  const mensaje = req.session.errorAcceso;
+
+  req.session.errorAcceso = null;
+
+  res.render("index-admin", { error: mensaje });
+};
 
 export const createAdmin = async (req, res) => {
   try {
@@ -37,6 +45,7 @@ export const findAdminById = async (req, res) => {
       .json({ message: "Error interno del servidor", err: error.message });
   }
 };
+
 export const loginAdmin = async (req, res) => {
   const { email, password } = req.body;
 

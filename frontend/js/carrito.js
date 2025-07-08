@@ -115,19 +115,19 @@ function addCarrito(element) {
     const botonAgregar = document.getElementById(`add-${element.id}`);
     if (botonAgregar) {
       botonAgregar.disabled = true;
-    }  
-      Swal.fire({
-    toast: true,
-    position: "bottom-start",
-    icon: "error",
-    title: `No hay stock suficiente`,
-    showConfirmButton: false,
-    timer: 2500,
-    timerProgressBar: true,
-    background: "#222",
-    color: "#fff",
-  });
-  return;
+    }
+    Swal.fire({
+      toast: true,
+      position: "bottom-start",
+      icon: "error",
+      title: `No hay stock suficiente`,
+      showConfirmButton: false,
+      timer: 2500,
+      timerProgressBar: true,
+      background: "#222",
+      color: "#fff",
+    });
+    return;
   }
 
   if (productoExistente) {
@@ -174,25 +174,22 @@ btn_cancelar.addEventListener("click", () => {
 });
 
 // SOLO ABRE EL MODAL, NO COMPRA
-btn_finalizar.addEventListener("click", () => {
+btn_finalizar.addEventListener("click", (e) => {
   if (listaCarrito.length === 0) {
+    e.preventDefault();
     Swal.fire({
       toast: true,
       position: "bottom",
       icon: "warning",
-      title: "El carrito esta vacio",
+      title: "El carrito está vacío",
       showConfirmButton: false,
       timer: 2000,
       timerProgressBar: true,
       background: "#222",
       color: "#fff",
     });
-    return;
+    return false;
   }
-  let modal = new bootstrap.Modal(
-    document.getElementById("modalConfirmarCompra")
-  );
-  modal.show();
 });
 
 // CONFIRMA LA COMPRA SOLO CUANDO EL USUARIO ACEPTA EN EL MODAL
@@ -203,7 +200,10 @@ btn_confirmar.addEventListener("click", async (e) => {
     const res = await fetch("/api/ventas", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ventas: listaCarrito }),
+      body: JSON.stringify({
+        ventas: listaCarrito,
+        clienteNombre: localStorage.getItem("clienteNombre") || "Cliente",
+      }),
     });
     if (res.ok) {
       // Guarda el carrito para el ticket antes de limpiar
@@ -212,8 +212,9 @@ btn_confirmar.addEventListener("click", async (e) => {
       listaCarrito = [];
       renderCarrito();
       guardarProductos();
+      const { ventaId } = await res.json();
       // Redirige al ticket
-      window.location.href = "/ticket";
+      window.location.href = `/ticket?id=${encodeURIComponent(ventaId)}`;
     } else {
       console.log("Error al registrar la venta");
     }

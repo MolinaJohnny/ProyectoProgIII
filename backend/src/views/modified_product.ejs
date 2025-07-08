@@ -19,13 +19,11 @@
     />
   
     <label for="categoria">Categoría:</label>
-    <input
-      type="text"
-      id="categoria"
-      name="categoria"
-      value="<%= producto.categoria %>"
-      required
-    />
+    <select id="categoria" name="categoriaId" required>
+      <% categorias.forEach(cat => { %>
+        <option value="<%= cat.id %>" <%= producto.categoriaId === cat.id ? "selected" : "" %>><%= cat.nombre %></option>
+      <% }) %>
+    </select>
 
     <label for="precio">Precio:</label>
     <input

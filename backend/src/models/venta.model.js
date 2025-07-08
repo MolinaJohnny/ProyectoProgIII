@@ -9,30 +9,26 @@ export const Venta = sequelize.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    nombre: {
+    usuario: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    categoria: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    precio: {
-      type: DataTypes.FLOAT,
-      allowNull: false,
-    },
-    cantidad: {
+    cantidad_productos: {
       type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    precio_total: {
+      type: DataTypes.FLOAT,
       allowNull: false,
     },
     fecha: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: DataTypes.NOW, // Se asigna la fecha actual por defecto
+      defaultValue: DataTypes.NOW,
     },
   },
   {
     tableName: "ventas",
-    timestamps: false,
+    timestamps: false, // si querés desactivar createdAt / updatedAt automáticos
   }
 );

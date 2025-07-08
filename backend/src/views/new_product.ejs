@@ -1,6 +1,5 @@
 <%- include("partials/nav.ejs") %>
 <main class="container py-4">
-
   <form
     class="d-flex flex-column text-center align-items-center h4 gap-3"
     action="/api/products"
@@ -13,13 +12,24 @@
     <input type="text" id="nombre" name="nombre" required />
 
     <label for="categoria">Categoría:</label>
-    <input type="text" id="categoria" name="categoria" required />
+    <select id="categoria" name="categoriaId" required>
+      <% categorias.forEach(cat => { %>
+      <option value="<%= cat.id %>"><%= cat.nombre %></option>
+      <% }) %>
+    </select>
 
     <label for="precio">Precio:</label>
     <input type="text" id="precio" name="precio" required />
     <div class="d-flex flex-column justify-content-center">
-    <label for="imagen">Imagen:</label>
-    <input class=" d-flex w-100 justify-content-center" type="file" id="imagen" name="imagen" accept="image/*" required />
+      <label for="imagen">Imagen:</label>
+      <input
+        class="d-flex w-100 justify-content-center"
+        type="file"
+        id="imagen"
+        name="imagen"
+        accept="image/*"
+        required
+      />
     </div>
     <label for="stock">Stock:</label>
     <input type="text" id="stock" name="stock" required />

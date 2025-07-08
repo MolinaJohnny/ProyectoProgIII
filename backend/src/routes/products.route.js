@@ -5,18 +5,27 @@ import {
   getCarrito,
   getTicket,
   getAllProducts,
-  createProduct,
-  getIndexAdmin,
+} from "../controllers/products.controller.js";
+import { getIndexAdmin } from "../controllers/admin.controller.js";
+import {
   getNewProduct,
   getListProductos,
-  registrarVentas,
   getEditProduct,
   updateProduct,
   toggleDisponible,
   deleteProduct,
-} from "../controllers/products.controller.js";
-import { getVentasAdmin } from "../controllers/products.controller.js";
+  createProduct,
+} from "../controllers/product-admin.controller.js";
+import {
+  registrarVentas,
+  getVentaById,
+  getVentasAdmin,
+} from "../controllers/venta-admin.controller.js";
 import { verificarAdmin } from "../middlewares/auth.middleware.js";
+import {
+  listarCategorias,
+  crearCategoria,
+} from "../controllers/categoria.controller.js";
 import upload from "../middlewares/multer-cloudinary.middleware.js";
 
 const router = Router();
@@ -40,6 +49,10 @@ router.post("/api/products", upload.single("imagen"), createProduct);
 router.post("/producto/:id/eliminar", deleteProduct);
 
 router.post("/api/ventas", registrarVentas);
+router.get("/api/ventas/:id", getVentaById);
+
+router.get("/api/categorias", listarCategorias);
+router.post("/api/categorias", crearCategoria);
 
 router.get("/modificar-producto/:id", getEditProduct);
 router.post("/modificar-producto/:id", upload.single("imagen"), updateProduct);

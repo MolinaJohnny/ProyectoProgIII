@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../config/db-sequelize.js";
+import { Categoria } from "./categoria.model.js";
 
 export const Product = sequelize.define(
   "Product",
@@ -10,9 +11,13 @@ export const Product = sequelize.define(
       primaryKey: true,
       allowNull: false,
     },
-    categoria: {
-      type: DataTypes.STRING,
+    categoriaId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: "categorias",
+        key: "id",
+      },
     },
     nombre: {
       type: DataTypes.STRING,
@@ -40,3 +45,7 @@ export const Product = sequelize.define(
     tableName: "products",
   }
 );
+
+//! REPASAR
+Product.belongsTo(Categoria, { foreignKey: "categoriaId", as: "categoria" });
+Categoria.hasMany(Product, { foreignKey: "categoriaId", as: "productos" });

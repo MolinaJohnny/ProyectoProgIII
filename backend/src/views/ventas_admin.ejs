@@ -2,32 +2,30 @@
 <main class="container py-4">
   <h2 class="mb-3 h4">Ventas realizadas</h2>
   <div class="table-responsive">
-  <table class="table table-bordered table-sm text-center">
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Categoría</th>
-        <th>Precio</th>
-        <th>Cantidad vendida</th>
-        <th>Fecha</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% if (ventas.length > 0) { %> <% ventas.forEach(venta => { %>
-      <tr>
-        <td><%= venta.nombre %></td>
-        <td><%= venta.categoria %></td>
-        <td>$<%= venta.precio %></td>
-        <td><%= venta.cantidad %></td>
-        <td><%= new Date(venta.fecha).toLocaleString() %></td>
-      </tr>
-      <% }) %> <% } else { %>
-      <tr>
-        <td colspan="4" class="text-center">No hay ventas registradas.</td>
-      </tr>
-      <% } %>
-    </tbody>
-  </table>
+    <table class="table table-bordered table-sm text-center">
+      <thead>
+        <tr>
+          <th>Usuario</th>
+          <th>Cantidad productos</th>
+          <th>Precio total</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (ventas.length > 0) { %> <% ventas.forEach(venta => { %>
+        <tr>
+          <td><%= venta.usuario %></td>
+          <td><%= venta.cantidad_productos %></td>
+          <td>$<%= venta.precio_total %></td>
+          <td><%= new Date(venta.fecha).toLocaleString() %></td>
+        </tr>
+        <% }) %> <% } else { %>
+        <tr>
+          <td colspan="4" class="text-center">No hay ventas registradas.</td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
   </div>
 </main>
 <%- include('partials/footer.ejs') %>

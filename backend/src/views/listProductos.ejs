@@ -29,7 +29,6 @@
       >
         🔑 Juegos digitales
       </button>
-
     </form>
     <button
       onclick="window.location.href= '/mod-producto'"
@@ -38,17 +37,12 @@
       Crear producto
     </button>
   </div>
-  <div class="mb-4 d-flex flex-wrap justify-content-center gap-3 ">
+  <div class="mb-4 d-flex flex-wrap justify-content-center gap-3">
     <form method="GET" action="/lista-productos " class="d-flex gap-2">
-        <input
-          type="text"
-          name="busqueda"
-          id="buscador"
-          class="form-control w-50"
-          placeholder="Buscar productos..."
-          value="<% typeof busqueda !== 'undefined' ? busqueda: "" %> "
-        />
-        <button type="submit" class="btn btn-primary">Buscar</button>
+      <input type="text" name="busqueda" id="buscador" class="form-control w-50"
+      placeholder="Buscar productos..." value="<% typeof busqueda !==
+      'undefined' ? busqueda: "" %> " />
+      <button type="submit" class="btn btn-primary">Buscar</button>
     </form>
   </div>
   <div id="listaProductos" class="row justify-content-center g-4">
