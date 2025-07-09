@@ -19,7 +19,7 @@ export const getListProductos = async (req, res) => {
 
   // Trae productos paginados y filtrados por categoría si corresponde
   const { rows, count } = await getProducts({
-    filtro,
+    where: filtro, //where para especificar que registro traer segul el valor del campo
     limit: 1000,
     offset: 0,
     include: ["categoria"],

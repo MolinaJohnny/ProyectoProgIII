@@ -9,26 +9,20 @@
         type="submit"
         name="categoria"
         value="todos"
-        class="btn btn-secondary"
+        class="btn <%= categoriaSeleccionada === 'todos' ? 'btn-secondary' : 'btn-outline-secondary' %>"
       >
         🛍️ Todos
       </button>
+      <% categorias.forEach(cat => { %>
       <button
         type="submit"
         name="categoria"
-        value="juegos"
-        class="btn btn-primary"
+        value="<%= cat.id %>"
+        class="btn <%= categoriaSeleccionada == cat.id ? 'btn-primary' : 'btn-outline-primary' %>"
       >
-        🎮 Juegos físicos
+        <%= cat.nombre %>
       </button>
-      <button
-        type="submit"
-        name="categoria"
-        value="keys"
-        class="btn btn-success"
-      >
-        🔑 Juegos digitales
-      </button>
+      <% }) %>
     </form>
     <button
       onclick="window.location.href= '/mod-producto'"
@@ -52,7 +46,10 @@
         <h5 class="card-title"><%= producto.nombre %></h5>
         <p class="card-text">💰 Precio: $<%= producto.precio %></p>
         <p class="card-text">📦 Stock: <%= producto.stock %></p>
-        <p class="card-text">🏷️ Categoría: <%= producto.categoria %></p>
+        <p class="card-text">
+          🏷️ Categoría: <%= producto.categoria ? producto.categoria.nombre : ''
+          %>
+        </p>
         <div class="text-center">
           <a
             href="/modificar-producto/<%= producto.id %>"
