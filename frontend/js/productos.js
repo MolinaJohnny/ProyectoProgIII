@@ -39,20 +39,13 @@ async function cargarCategorias() {
   const res = await fetch("/api/categorias");
   const data = await res.json();
   const categorias = data.categorias;
-  const nombreCategoria = (cat) => {
-    if (cat.nombre === "juegos") return "🎮 Juegos físicos";
-    if (cat.nombre === "keys") return "🔑 Juegos digitales";
-    return cat.nombre;
-  };
   const contenedor = document.getElementById("filtrosCategorias");
   contenedor.innerHTML = `
     <button class="btn btn-secondary" onclick="mostrarCategoria('todos')">🛍️ Todos</button>
     ${categorias
       .map(
         (cat) => `
-      <button class="btn btn-primary" onclick="mostrarCategoria(${
-        cat.id
-      })">${nombreCategoria(cat)}</button>
+      <button class="btn btn-primary" onclick="mostrarCategoria(${cat.id})">${cat.nombre}</button>
     `
       )
       .join("")}

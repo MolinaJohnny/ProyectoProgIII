@@ -23,8 +23,6 @@ export const getTicket = (req, res) => {
 export const getAllProducts = async (req, res) => {
   try {
     let { limit, offset } = req.query;
-    limit = parseInt(limit, 10);
-    offset = parseInt(offset, 10);
     const products = await getProducts({ limit, offset });
     res.status(200).json({
       message: "Lista de productos",

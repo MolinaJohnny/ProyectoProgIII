@@ -1,8 +1,7 @@
 import express from "express";
 import session from "express-session";
 import { __dirname, join } from "./utils/index.js";
-import productRoutes from "./routes/products.route.js";
-import adminRoutes from "./routes/admin.route.js";
+import routes from "./routes/index.route.js";
 import { middlewares } from "./middlewares/auth.middleware.js";
 import { sequelize } from "./config/db-sequelize.js";
 import { Venta } from "./models/venta.model.js";
@@ -27,8 +26,7 @@ app.use(
 );
 
 // Rutas de API y frontend
-app.use("/", productRoutes);
-app.use("/", adminRoutes);
+app.use("/", routes);
 
 // Servir archivos estáticos de la carpeta frontend
 app.use(express.static(join(__dirname, "../../frontend")));
