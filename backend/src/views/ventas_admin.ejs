@@ -1,7 +1,19 @@
 <%- include('partials/nav.ejs') %>
 <main class="container py-4">
-  <h2 class="mb-3 h4">Ventas realizadas</h2>
-  <div class="table-responsive">
+  <div class="mb-4 text-center">
+    <button id="btnVentas" class="btn btn-primary mx-2">
+      Ver todas las ventas
+    </button>
+    <button id="btnProductos" class="btn btn-outline-primary mx-2">
+      Productos más vendidos
+    </button>
+    <button id="btnCaras" class="btn btn-outline-primary mx-2">
+      Ventas más caras
+    </button>
+  </div>
+  <!-- Tabla de ventas normales -->
+  <div id="tablaVentas" class="table-responsive mb-5">
+    <h2 class="mb-3 h4">Ventas realizadas</h2>
     <table class="table table-bordered table-sm text-center">
       <thead>
         <tr>
@@ -27,5 +39,64 @@
       </tbody>
     </table>
   </div>
+
+  <!-- Tabla de los 10 productos más vendidos -->
+  <div id="tablaProductos" class="table-responsive mb-5">
+    <h3 class="mb-3 h5">Top 10 productos más vendidos</h3>
+    <table class="table table-bordered table-sm text-center">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Total Vendida</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (productosVendidos && productosVendidos.length > 0) { %> <%
+        productosVendidos.forEach(item => { %>
+        <tr>
+          <td>
+            <%= item.Product ? item.Product.nombre : 'Producto eliminado' %>
+          </td>
+          <td><%= item.dataValues.total_vendida %></td>
+        </tr>
+        <% }) %> <% } else { %>
+        <tr>
+          <td colspan="2" class="text-center">No hay productos vendidos.</td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tabla de las 10 ventas más caras -->
+  <div id="tablaCaras" class="table-responsive mb-5">
+    <h3 class="mb-3 h5">Top 10 ventas más caras</h3>
+    <table class="table table-bordered table-sm text-center">
+      <thead>
+        <tr>
+          <th>Usuario</th>
+          <th>Cantidad productos</th>
+          <th>Precio total</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (ventasCaras && ventasCaras.length > 0) { %> <%
+        ventasCaras.forEach(venta => { %>
+        <tr>
+          <td><%= venta.usuario %></td>
+          <td><%= venta.cantidad_productos %></td>
+          <td>$<%= venta.precio_total %></td>
+          <td><%= new Date(venta.fecha).toLocaleString() %></td>
+        </tr>
+        <% }) %> <% } else { %>
+        <tr>
+          <td colspan="4" class="text-center">No hay ventas registradas.</td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
 </main>
 <%- include('partials/footer.ejs') %>
+<script src="/js/ventas_admin.js"></script>

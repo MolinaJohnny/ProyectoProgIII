@@ -44,6 +44,9 @@
 <main>
   <h2>¡Bienvenido!</h2>
   <p>Ingrese sus credenciales:</p>
+  <% if (typeof error !== "undefined" && error) { %>
+  <div class="alert alert-danger text-center"><%= error %></div>
+  <% } %>
   <form id="loginForm" action="/index-admin" method="POST">
     <div class="container py-4 w-auto">
       <input
@@ -67,7 +70,7 @@
   </form>
   <button id="test">Acceso Test</button>
   <script>
-      document.getElementById("test").addEventListener("click", ()=>{
+    document.getElementById("test").addEventListener("click", () => {
       document.getElementById("emailCliente").value = "juan@gmail.com";
       document.getElementById("passCliente").value = "password123";
       document.getElementById("loginForm").submit();
@@ -75,4 +78,3 @@
   </script>
 </main>
 <%- include('partials/footer.ejs') %>
-  

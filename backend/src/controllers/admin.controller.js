@@ -55,14 +55,14 @@ export const loginAdmin = async (req, res) => {
     if (!admin) {
       return res
         .status(401)
-        .render("index-admin", { error: "Usuario no encontrado" });
+        .render("index-admin", { error: "Usuario o contraseña incorrectos" });
     }
 
     const passwordValida = await bcrypt.compare(password, admin.password);
     if (!passwordValida) {
       return res
         .status(401)
-        .render("index-admin", { error: "Contraseña incorrecta" });
+        .render("index-admin", { error: "Usuario o contraseña incorrectos" });
     }
     // Si todo está bien, redirige al panel o dashboard
     req.session.rol = "admin";

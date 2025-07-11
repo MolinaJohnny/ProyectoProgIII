@@ -1,6 +1,11 @@
 import { getProductById } from "../services/product.service.js";
 import { Venta } from "../models/venta.model.js";
-import { getVentas } from "../services/venta.service.js";
+import { DetalleVenta } from "../models/detalleVenta.model.js";
+import {
+  getTopProductosVendidos,
+  getVentas,
+} from "../services/venta.service.js";
+import { Product } from "../models/product.model.js";
 
 export const registrarVentas = async (req, res) => {
   try {
@@ -34,14 +39,16 @@ export const registrarVentas = async (req, res) => {
       precio_total,
       fecha: new Date(),
     });
-    // Guarda el detalle de productos en la sesión para el ticket
-    req.session.ultimoTicket = {
-      productos: ventas,
-      usuario: clienteNombre || "Cliente",
-      precio_total,
-      fecha: nuevaVenta.fecha,
-      ventaId: nuevaVenta.id,
-    };
+
+    // Guarda el detalle de productos vendidos
+    for (const v of ventas) {
+      await DetalleVenta.create({
+        ventaId: nuevaVenta.id,
+        productoId: v.id,
+        cantidad: v.cantidad,
+        precio_unitario: v.precio,
+      });
+    }
 
     res
       .status(201)
@@ -60,11 +67,20 @@ export const getVentaById = async (req, res) => {
     if (!venta) {
       return res.status(404).json({ message: "Venta no encontrada" });
     }
-    //Trae los productos de la sesión //! REPASAR
-    let productos = [];
-    if (req.session.ultimoTicket && req.session.ultimoTicket.ventaId == id) {
-      productos = req.session.ultimoTicket.productos;
-    }
+
+    // Traer el detalle de productos vendidos en esta venta
+    const productosDetalle = await DetalleVenta.findAll({
+      where: { ventaId: id },
+      include: [{ model: Product, attributes: ["nombre"] }],
+    });
+
+    // Formatear los productos para el ticket
+    const productos = productosDetalle.map((detalle) => ({
+      nombre: detalle.Product ? detalle.Product.nombre : "Producto eliminado",
+      cantidad: detalle.cantidad,
+      precio: detalle.precio_unitario,
+    }));
+
     res.status(200).json({ venta, productos });
   } catch (error) {
     res
@@ -73,10 +89,15 @@ export const getVentaById = async (req, res) => {
   }
 };
 
-export const getVentasAdmin = async (req, res) => {
+export const getRankingAdmin = async (req, res) => {
   try {
     const ventas = await getVentas();
-    res.render("ventas_admin", { ventas });
+    const productosVendidos = await getTopProductosVendidos();
+    const ventasCaras = await Venta.findAll({
+      order: [["precio_total", "DESC"]],
+      limit: 10,
+    });
+    res.render("ventas_admin", { ventas, productosVendidos, ventasCaras });
   } catch (error) {
     res
       .status(500)

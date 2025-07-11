@@ -124,6 +124,14 @@ function agregarAlCarrito(idProducto) {
   const producto = productos.find((p) => p.id === idProducto);
   if (!producto) return;
 
+  // Asegura que el producto tenga el nombre de la categoría
+  let categoriaNombre = "Sin categoría";
+  if (producto.categoria && producto.categoria.nombre) {
+    categoriaNombre = producto.categoria.nombre;
+  } else if (producto.categoria) {
+    categoriaNombre = producto.categoria;
+  }
+
   let carrito = JSON.parse(localStorage.getItem("productos_carrito")) || [];
   const index = carrito.findIndex((p) => p.id === idProducto);
 
@@ -137,7 +145,8 @@ function agregarAlCarrito(idProducto) {
     }
   } else {
     if (producto.stock > 0) {
-      carrito.push({ ...producto, cantidad: 1 });
+      // Guarda el nombre de la categoría en el producto del carrito
+      carrito.push({ ...producto, cantidad: 1, categoria: categoriaNombre });
       mostrarToast(`${producto.nombre} agregado al carrito`);
     } else {
       mostrarToast(`Producto sin stock`, "error");
