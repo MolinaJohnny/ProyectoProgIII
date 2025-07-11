@@ -10,8 +10,6 @@ function getVentaIdFromUrl() {
   return params.get("id");
 }
 
-let listaCarrito = [];
-
 async function obtenerVenta(id) {
   const res = await fetch(`/api/ventas/${id}`);
   if (!res.ok) throw new Error("No se pudo obtener la venta");
@@ -44,7 +42,7 @@ function renderTicket({ venta, productos }) {
       div.innerHTML = `
         <p class="text-wrap col-4">${prod.nombre}</p>
         <p class="text-wrap col-2">${prod.cantidad}</p>
-        <p class="text-wrap col-3">$${prod.precio.toFixed(2)}</p>
+        <p class="text-wrap col-3">$${Number(prod.precio).toFixed(2)}</p>
         <p class="col-3">$${(prod.precio * prod.cantidad).toFixed(2)}</p>`;
       contenedor.appendChild(div);
     });

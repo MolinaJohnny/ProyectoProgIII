@@ -5,6 +5,7 @@ if (!localStorage.getItem("clienteNombre")) {
 
 // Variables globales
 let productos = [];
+let categorias = [];
 let categoriaActual = "todos";
 let productosPorPagina = 8;
 let paginaActual = 1;
@@ -38,7 +39,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 async function cargarCategorias() {
   const res = await fetch("/api/categorias");
   const data = await res.json();
-  const categorias = data.categorias;
+  categorias = data.categorias;
   const contenedor = document.getElementById("filtrosCategorias");
   contenedor.innerHTML = `
     <button class="btn btn-secondary" onclick="mostrarCategoria('todos')">🛍️ Todos</button>
@@ -124,13 +125,10 @@ function agregarAlCarrito(idProducto) {
   const producto = productos.find((p) => p.id === idProducto);
   if (!producto) return;
 
-  // Asegura que el producto tenga el nombre de la categoría
+  // Busca el nombre de la categoría usando categoriaId
   let categoriaNombre = "Sin categoría";
-  if (producto.categoria && producto.categoria.nombre) {
-    categoriaNombre = producto.categoria.nombre;
-  } else if (producto.categoria) {
-    categoriaNombre = producto.categoria;
-  }
+  const cat = categorias.find((c) => c.id === producto.categoriaId);
+  if (cat) categoriaNombre = cat.nombre;
 
   let carrito = JSON.parse(localStorage.getItem("productos_carrito")) || [];
   const index = carrito.findIndex((p) => p.id === idProducto);
@@ -145,7 +143,6 @@ function agregarAlCarrito(idProducto) {
     }
   } else {
     if (producto.stock > 0) {
-      // Guarda el nombre de la categoría en el producto del carrito
       carrito.push({ ...producto, cantidad: 1, categoria: categoriaNombre });
       mostrarToast(`${producto.nombre} agregado al carrito`);
     } else {

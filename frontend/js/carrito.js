@@ -226,6 +226,14 @@ btn_confirmar.addEventListener("click", async (e) => {
 // Inicializa el carrito desde localStorage al cargar la página
 function init() {
   listaCarrito = JSON.parse(localStorage.getItem("productos_carrito")) || [];
+  // Asegura que cada producto tenga la propiedad categoria como string
+  listaCarrito = listaCarrito.map((prod) => ({
+    ...prod,
+    categoria:
+      typeof prod.categoria === "string"
+        ? prod.categoria
+        : prod.categoria?.nombre || "Sin categoría",
+  }));
   renderCarrito();
 }
 init();
