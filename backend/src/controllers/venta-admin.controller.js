@@ -3,6 +3,7 @@ import { Venta } from "../models/venta.model.js";
 import { DetalleVenta } from "../models/detalleVenta.model.js";
 import {
   getTopProductosVendidos,
+  getTopVentas,
   getVentas,
 } from "../services/venta.service.js";
 import { Product } from "../models/product.model.js";
@@ -93,10 +94,7 @@ export const getRankingAdmin = async (req, res) => {
   try {
     const ventas = await getVentas();
     const productosVendidos = await getTopProductosVendidos();
-    const ventasCaras = await Venta.findAll({
-      order: [["precio_total", "DESC"]],
-      limit: 10,
-    });
+    const ventasCaras = await getTopVentas();
     res.render("ventas_admin", { ventas, productosVendidos, ventasCaras });
   } catch (error) {
     res

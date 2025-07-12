@@ -16,6 +16,13 @@ export const getTopProductosVendidos = async () => {
   });
 };
 
+export const getTopVentas = async () => {
+  return await Venta.findAll({
+    order: [["precio_total", "DESC"]],
+    limit: 10,
+  });
+};
+
 export const getVentas = async () => {
   return await Venta.findAll();
 };

@@ -2,8 +2,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const form = document.querySelector("form");
   if (!form) return;
 
-  // const categoriaValida = ["juegos", "keys"];
-
   form.addEventListener("submit", function (e) {
     const nombre = document.getElementById("nombre").value.trim();
     const categoria = document
@@ -18,11 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!nombre || !categoria || !precio || !stock) {
       errores.push("Todos los campos son obligatorios (excepto imagen).");
     }
-
-    // Validar categoría
-    // if (!categoriaValida.includes(categoria)) {
-    //   errores.push("La categoría debe ser 'juegos' o 'keys'.");
-    // }
 
     // Validar precio y stock como números positivos
     if (isNaN(precio) || Number(precio) <= 0) {
