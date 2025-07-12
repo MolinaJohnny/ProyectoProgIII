@@ -8,7 +8,11 @@ import {
 import { getCategorias } from "../services/categoria.service.js";
 
 export const getListProductos = async (req, res) => {
-  const { categoria, busqueda = "" } = req.query;
+  const { categoria, busqueda = "", page= 1 } = req.query;
+  const limit = 8; // productos por página
+  const offset = (parseInt(page) - 1) * limit;
+
+
   const categorias = await getCategorias();
 
   // Filtro para la consulta a la base
@@ -18,13 +22,13 @@ export const getListProductos = async (req, res) => {
   }
 
   // Trae productos paginados y filtrados por categoría si corresponde
-  const { rows, count } = await getProducts({
+  const { rows: productos, count } = await getProducts({
     where: filtro, //where para especificar que registro traer segul el valor del campo
-    limit: 1000,
-    offset: 0,
+    limit,
+    offset,
     include: ["categoria"],
   });
-  let productos = rows;
+  
 
   // Filtro de búsqueda por nombre (en memoria)
   if (busqueda.trim() !== "") {
@@ -33,12 +37,21 @@ export const getListProductos = async (req, res) => {
       p.nombre.toLowerCase().trim().includes(texto)
     );
   }
+  const totalPaginas = Math.ceil(count / limit);
+  const paginaActual = parseInt(page);
 
+console.log({
+  productos: productos.map(p => p.nombre), // 🔹 solo los nombres
+  paginaActual,
+  totalPaginas
+});
   res.render("listProductos", {
     productos,
     categorias,
     categoriaSeleccionada: categoria || "todos",
     busqueda,
+    paginaActual,
+    totalPaginas,
     count,
   });
 };
