@@ -8,10 +8,9 @@ import {
 import { getCategorias } from "../services/categoria.service.js";
 
 export const getListProductos = async (req, res) => {
-  const { categoria, busqueda = "", page= 1 } = req.query;
+  const { categoria, busqueda = "", page = 1 } = req.query;
   const limit = 8; // productos por página
   const offset = (parseInt(page) - 1) * limit;
-
 
   const categorias = await getCategorias();
 
@@ -28,7 +27,6 @@ export const getListProductos = async (req, res) => {
     offset,
     include: ["categoria"],
   });
-  
 
   // Filtro de búsqueda por nombre (en memoria)
   if (busqueda.trim() !== "") {
@@ -40,11 +38,6 @@ export const getListProductos = async (req, res) => {
   const totalPaginas = Math.ceil(count / limit);
   const paginaActual = parseInt(page);
 
-console.log({
-  productos: productos.map(p => p.nombre), // 🔹 solo los nombres
-  paginaActual,
-  totalPaginas
-});
   res.render("listProductos", {
     productos,
     categorias,

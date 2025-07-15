@@ -175,8 +175,9 @@ btn_cancelar.addEventListener("click", () => {
 
 // SOLO ABRE EL MODAL, NO COMPRA
 btn_finalizar.addEventListener("click", (e) => {
+  e.preventDefault();
+
   if (listaCarrito.length === 0) {
-    e.preventDefault();
     Swal.fire({
       toast: true,
       position: "bottom",
@@ -188,8 +189,14 @@ btn_finalizar.addEventListener("click", (e) => {
       background: "#222",
       color: "#fff",
     });
-    return false;
+    return;
   }
+
+  // Usar la clase Modal expuesta globalmente por Bootstrap
+  const modal = new bootstrap.Modal(
+    document.getElementById("modalConfirmarCompra")
+  );
+  modal.show();
 });
 
 // CONFIRMA LA COMPRA SOLO CUANDO EL USUARIO ACEPTA EN EL MODAL
@@ -237,3 +244,12 @@ function init() {
   renderCarrito();
 }
 init();
+
+document.addEventListener("DOMContentLoaded", () => {
+  const modalElement = document.getElementById("modalConfirmarCompra");
+  modalElement.classList.remove("show");
+  modalElement.style.display = "none";
+  document.body.classList.remove("modal-open");
+  const backdrop = document.querySelector(".modal-backdrop");
+  if (backdrop) backdrop.remove();
+});

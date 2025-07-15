@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Encuesta de Satisfacción</title>
+    <link rel="stylesheet" href="styles/index.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Encuesta de Satisfacción</h1>
+      <form
+        id="encuestaForm"
+        class="encuesta-form"
+        enctype="multipart/form-data"
+      >
+        <label for="email">Correo electrónico:</label>
+        <input type="email" id="email" name="email" required />
+
+        <label for="opinion">Opinión:</label>
+        <textarea id="opinion" name="opinion" required></textarea>
+
+        <label>
+          <input type="checkbox" id="ayuda" name="ayuda" />
+          Solicité asistencia durante la compra
+        </label>
+
+        <label for="puntuacion">Puntuación del servicio:</label>
+        <input
+          type="range"
+          id="puntuacion"
+          name="puntuacion"
+          min="1"
+          max="10"
+          value="5"
+        />
+
+        <label for="imagen">Adjuntar imagen (opcional):</label>
+        <input type="file" id="imagen" name="imagen" accept="image/*" />
+
+        <div class="acciones">
+          <button type="submit">Enviar</button>
+          <button type="button" id="omitirBtn">Omitir</button>
+        </div>
+        <div id="errores"></div>
+      </form>
+    </main>
+    <div id="modalAgradecimiento" class="modal" style="display: none">
+      <div class="modal-content">
+        <p>¡Gracias por tu opinión!</p>
+        <button id="cerrarModal">Cerrar</button>
+      </div>
+    </div>
+    <script src="js/encuesta.js"></script>
+  </body>
+</html>

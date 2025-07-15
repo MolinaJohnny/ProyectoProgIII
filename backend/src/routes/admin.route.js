@@ -4,6 +4,7 @@ import {
   findAdminById,
   loginAdmin,
   getIndexAdmin,
+  getAsistencias,
 } from "../controllers/admin.controller.js";
 import {
   getNewProduct,
@@ -22,5 +23,6 @@ router.get("/api/admins/:id", findAdminById);
 
 router.get("/lista-productos", verificarAdmin, getListProductos);
 router.get("/mod-producto", verificarAdmin, getNewProduct);
+router.get("/asistencias", verificarAdmin, getAsistencias);
 
 export default router;

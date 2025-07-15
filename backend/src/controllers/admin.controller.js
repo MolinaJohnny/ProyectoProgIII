@@ -1,4 +1,5 @@
 import { findPk, create, getAdminByEmail } from "../services/admin.service.js";
+import { obtenerEncuestas } from "../services/encuesta.service.js";
 import { hashPassword } from "../helpers/authHelper.js";
 
 import bcrypt from "bcrypt";
@@ -73,4 +74,16 @@ export const loginAdmin = async (req, res) => {
       .status(500)
       .json({ message: "Error interno del servidor", err: error.message });
   }
+};
+
+export const getAsistencias = async (req, res) => {
+  const { desde, hasta } = req.query;
+  let filtros = { ayuda: true };
+  let usandoFiltroFecha = false;
+  if (desde && hasta) {
+    filtros.fecha = { desde, hasta };
+    usandoFiltroFecha = true;
+  }
+  const asistencias = await obtenerEncuestas(filtros);
+  res.render("asistencia_admin", { asistencias });
 };

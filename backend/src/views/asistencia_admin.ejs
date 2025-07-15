@@ -1,0 +1,41 @@
+<%- include('partials/nav.ejs') %>
+<main class="container py-4">
+  <h2>Asistencias solicitadas</h2>
+  <form method="GET" class="mb-3">
+    <label>Desde: <input type="date" name="desde" /></label>
+    <label>Hasta: <input type="date" name="hasta" /></label>
+    <button type="submit">Filtrar</button>
+  </form>
+  <table class="table table-bordered asistencias-table">
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Opinión</th>
+        <th>Puntuación</th>
+        <th>Fecha</th>
+        <th>Imagen</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (asistencias && asistencias.length > 0) { %> <%
+      asistencias.forEach(e => { %>
+      <tr>
+        <td><%= e.email %></td>
+        <td><%= e.opinion %></td>
+        <td><%= e.puntuacion %></td>
+        <td><%= new Date(e.fecha).toLocaleDateString() %></td>
+        <td>
+          <% if (e.imagen) { %>
+          <img src="<%= e.imagen %>" width="50" />
+          <% } %>
+        </td>
+      </tr>
+      <% }) %> <% } else { %>
+      <tr>
+        <td colspan="5">No hay asistencias registradas.</td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+</main>
+<%- include('partials/footer.ejs') %>

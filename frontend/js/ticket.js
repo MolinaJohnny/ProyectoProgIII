@@ -103,10 +103,6 @@ async function init() {
   if (btnDescargar) {
     btnDescargar.addEventListener("click", descargarPDF);
   }
-
-  setTimeout(() => {
-    window.location.href = "/index.html";
-  }, 10000);
 }
 
 init();
