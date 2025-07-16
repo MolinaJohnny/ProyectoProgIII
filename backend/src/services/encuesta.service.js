@@ -7,11 +7,10 @@ export const crearEncuesta = async (data) => {
 
 export const obtenerEncuestas = async (filtros) => {
   const where = {};
-  // Filtro de fechas inclusivo
+  // Filtro de fechas inclusivo convierte a fecha local
   if (filtros.fecha && filtros.fecha.desde && filtros.fecha.hasta) {
-    const desde = new Date(filtros.fecha.desde);
-    const hasta = new Date(filtros.fecha.hasta);
-    hasta.setHours(23, 59, 59, 999);
+    const desde = new Date(filtros.fecha.desde + "T00:00:00");
+    const hasta = new Date(filtros.fecha.hasta + "T23:59:59");
     where.fecha = {
       [Op.gte]: desde,
       [Op.lte]: hasta,

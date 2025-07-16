@@ -2,8 +2,20 @@
 <main class="container py-4">
   <h2>Asistencias solicitadas</h2>
   <form method="GET" class="mb-3">
-    <label>Desde: <input type="date" name="desde" /></label>
-    <label>Hasta: <input type="date" name="hasta" /></label>
+    <label
+      >Desde:
+      <input
+        type="date"
+        name="desde"
+        value="<%= typeof desde !== 'undefined' ? desde : '' %>"
+    /></label>
+    <label
+      >Hasta:
+      <input
+        type="date"
+        name="hasta"
+        value="<%= typeof hasta !== 'undefined' ? hasta : '' %>"
+    /></label>
     <button type="submit">Filtrar</button>
   </form>
   <table class="table table-bordered asistencias-table">

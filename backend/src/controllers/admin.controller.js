@@ -85,5 +85,5 @@ export const getAsistencias = async (req, res) => {
     usandoFiltroFecha = true;
   }
   const asistencias = await obtenerEncuestas(filtros);
-  res.render("asistencia_admin", { asistencias });
+  res.render("asistencia_admin", { asistencias, desde, hasta });
 };
