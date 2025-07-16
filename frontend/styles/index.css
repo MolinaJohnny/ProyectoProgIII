@@ -423,7 +423,8 @@ body.claro .encuesta-form input[type="file"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 1055;
+  pointer-events: auto;
 }
 .modal-content {
   background: #fff;

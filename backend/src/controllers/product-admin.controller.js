@@ -6,11 +6,13 @@ import {
   getProducts,
 } from "../services/product.service.js";
 import { getCategorias } from "../services/categoria.service.js";
+import { Op } from "sequelize"; 
 
 export const getListProductos = async (req, res) => {
-  const { categoria, busqueda = "", page = 1 } = req.query;
+  const { categoria, busqueda = "", page= 1 } = req.query;
   const limit = 8; // productos por página
   const offset = (parseInt(page) - 1) * limit;
+
 
   const categorias = await getCategorias();
 
@@ -20,23 +22,23 @@ export const getListProductos = async (req, res) => {
     filtro.categoriaId = Number(categoria);
   }
 
+  if (busqueda.trim() !== "") {
+    filtro.nombre = {
+      [Op.like]: `%${busqueda.toLowerCase().trim()}%`, 
+    };
+  }
+
   // Trae productos paginados y filtrados por categoría si corresponde
-  const { rows: productos, count } = await getProducts({
+  let { rows: productos, count } = await getProducts({
     where: filtro, //where para especificar que registro traer segul el valor del campo
     limit,
     offset,
     include: ["categoria"],
   });
 
-  // Filtro de búsqueda por nombre (en memoria)
-  if (busqueda.trim() !== "") {
-    const texto = busqueda.toLowerCase().trim();
-    productos = productos.filter((p) =>
-      p.nombre.toLowerCase().trim().includes(texto)
-    );
-  }
   const totalPaginas = Math.ceil(count / limit);
   const paginaActual = parseInt(page);
+
 
   res.render("listProductos", {
     productos,
